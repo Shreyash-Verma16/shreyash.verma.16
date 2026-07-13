@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shreyash Verma — Tech Creator</title>
+  <title>Shreyash Verma — Tech Creator & Developer</title>
   <meta name="description" content="Shreyash Verma — Solo Tech Content Creator. Cinematic technology visualizations, AI/ML learner, and software developer." />
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -31,7 +31,8 @@
             accent: 'var(--accent)',
           },
           transitionTimingFunction: {
-            'apple-ease': 'cubic-bezier(0.16, 1, 0.3, 1)',
+            'apple-spring': 'cubic-bezier(0.16, 1, 0.3, 1)',
+            'butter-silk': 'cubic-bezier(0.25, 1, 0.5, 1)',
           },
         },
       },
@@ -41,70 +42,406 @@
   <style>
     /* ── Dynamic Theme Variables ── */
     :root {
-      --background: #f1f5f9;
-      --surface: rgba(255, 255, 255, 0.7);
-      --border: rgba(255, 255, 255, 0.9);
+      --background: #f3f6fc;
+      --surface: rgba(255, 255, 255, 0.78);
+      --border: rgba(203, 213, 225, 0.85);
       --text-primary: #0f172a;
       --text-secondary: #334155;
       --text-muted: #64748b;
       --accent: #0284c7;
-      --glass-shine: rgba(255, 255, 255, 0.9);
-      --glow-shadow: rgba(2, 132, 199, 0.3);
-      --grid-color: rgba(15, 23, 42, 0.04);
+      --glass-shine: rgba(255, 255, 255, 0.95);
+      --glow-shadow: rgba(2, 132, 199, 0.28);
+      --grid-color: rgba(15, 23, 42, 0.045);
+      --nav-tint: rgba(2, 132, 199, 0.16);
+      --nav-border: rgba(2, 132, 199, 0.45);
+      --island-bg: rgba(255, 255, 255, 0.88);
     }
 
     .dark {
       --background: #020617;
-      --surface: rgba(15, 23, 42, 0.55);
-      --border: rgba(255, 255, 255, 0.1);
+      --surface: rgba(15, 23, 42, 0.72);
+      --border: rgba(255, 255, 255, 0.12);
       --text-primary: #f8fafc;
       --text-secondary: #cbd5e1;
       --text-muted: #64748b;
       --accent: #38bdf8;
-      --glass-shine: rgba(255, 255, 255, 0.08);
+      --glass-shine: rgba(255, 255, 255, 0.12);
       --glow-shadow: rgba(56, 189, 248, 0.4);
-      --grid-color: rgba(255, 255, 255, 0.03);
+      --grid-color: rgba(255, 255, 255, 0.028);
+      --nav-tint: rgba(56, 189, 248, 0.18);
+      --nav-border: rgba(56, 189, 248, 0.5);
+      --island-bg: rgba(8, 12, 24, 0.96);
     }
 
     body {
       background-color: var(--background);
       color: var(--text-primary);
       overflow-x: hidden;
-      transition: background-color 1s cubic-bezier(0.16, 1, 0.3, 1), color 1s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── Feature 1: Siri-Style Hero Text Shimmer ── */
+    .apple-siri-shimmer {
+      background: linear-gradient(
+        135deg,
+        var(--text-primary) 0%,
+        var(--accent) 25%,
+        #ffffff 50%,
+        #d946ef 75%,
+        var(--text-primary) 100%
+      );
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: siriShimmerFlow 8s cubic-bezier(0.16, 1, 0.3, 1) infinite alternate;
+      filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.3));
+      will-change: background-position;
+    }
+
+    @keyframes siriShimmerFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ── Feature 2: Scroll-Driven Section Fluidity ── */
+    .reveal-node {
+      opacity: 0;
+      filter: blur(14px);
+      transform: translateY(48px) scale(0.96);
+      transition: 
+        opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, filter, transform;
+    }
+    .reveal-node.is-visible {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateY(0px) scale(1);
+    }
+
+    /* ── Feature 3: Adaptive Glass Dynamic Island ── */
+    #nav-island-wrapper {
+      position: fixed;
+      top: 16px;
+      left: 0;
+      right: 0;
+      z-index: 10000;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      pointer-events: none;
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-island {
+      pointer-events: auto;
+      background: var(--island-bg);
+      backdrop-filter: blur(50px) saturate(180%);
+      -webkit-backdrop-filter: blur(50px) saturate(180%);
+      border: 1.5px solid var(--nav-border);
+      box-shadow: 
+        inset 0 1px 1px var(--glass-shine), 
+        0 25px 60px -10px rgba(0, 0, 0, 0.35), 
+        0 0 45px -5px var(--nav-tint);
+      border-radius: 9999px;
+      width: 92%;
+      max-width: 1080px;
+      height: 70px;
+      position: relative;
+      overflow: hidden;
+      will-change: width, height, max-width, box-shadow, transform;
+      transition: 
+        width 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        max-width 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        height 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        border-radius 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.5s ease,
+        border-color 0.6s ease, 
+        box-shadow 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-island:hover {
+      transform: scale(1.012) translateY(-1px);
+      box-shadow: 
+        inset 0 1px 1px var(--glass-shine), 
+        0 30px 70px -10px rgba(0, 0, 0, 0.55), 
+        0 0 60px 8px var(--nav-tint);
+    }
+
+    .nav-island:active {
+      transform: scale(0.995);
+    }
+
+    .dark .nav-island {
+      box-shadow: 
+        inset 0 1px 1px var(--glass-shine), 
+        0 25px 60px -10px rgba(0, 0, 0, 0.75), 
+        0 0 45px -5px var(--nav-tint);
+    }
+
+    .nav-island.is-collapsed {
+      width: 340px;
+      max-width: 86vw;
+      height: 52px;
+      border-color: var(--nav-border);
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.18), 
+        0 15px 35px -5px rgba(0, 0, 0, 0.3), 
+        0 0 35px var(--nav-tint);
+    }
+
+    .nav-island.is-collapsed.island-notify {
+      width: 395px !important;
+      max-width: 92vw !important;
+      height: 58px !important;
+      border-color: var(--accent) !important;
+      box-shadow: 
+        inset 0 1px 1px var(--glass-shine), 
+        0 20px 45px -5px rgba(0, 0, 0, 0.45), 
+        0 0 50px 12px var(--nav-tint) !important;
+      transform: scale(1.03) translateY(2px);
+    }
+
+    .nav-view {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      white-space: nowrap; 
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-expanded-view {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: auto;
+      transition: 
+        opacity 0.55s 0.15s cubic-bezier(0.16, 1, 0.3, 1), 
+        transform 0.75s 0.08s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-island.is-collapsed .nav-expanded-view {
+      opacity: 0;
+      transform: scale(0.88) translateY(-12px);
+      pointer-events: none;
+      transition: opacity 0.18s 0s ease, transform 0.35s 0s ease;
+    }
+
+    .nav-compact-view {
+      opacity: 0;
+      transform: scale(0.88) translateY(12px);
+      pointer-events: none;
+      transition: opacity 0.18s 0s ease, transform 0.35s 0s ease;
+    }
+
+    .nav-island.is-collapsed .nav-compact-view {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: auto;
+      transition: 
+        opacity 0.55s 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+        transform 0.75s 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #compact-section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-island.island-notify #compact-section-badge {
+      transform: scale(1.06);
+      padding: 6px 16px;
+      background: var(--nav-tint);
+      border-color: var(--accent);
+      box-shadow: 0 0 20px var(--glow-shadow);
+    }
+
+    .nav-link {
+      position: relative;
+      padding: 7px 16px;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid transparent;
+    }
+
+    .nav-link:hover, .nav-link.active-section {
+      color: var(--accent);
+      background: var(--nav-tint);
+      border-color: var(--nav-border);
+      box-shadow: 0 0 22px var(--glow-shadow), inset 0 0 12px rgba(255, 255, 255, 0.1);
+      transform: translateY(-1.5px) scale(1.02);
+    }
+
+    /* ── Feature 4: Phone Mockup Dynamic Island Notification Engine ── */
+    .phone-dynamic-island {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 30px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 50;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 10px 25px rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
+      overflow: hidden;
+      transition: 
+        width 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        height 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        border-radius 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.5s ease,
+        background-color 0.5s ease;
+      will-change: width, height;
+    }
+
+    .phone-dynamic-island.is-active {
+      width: 280px;
+      height: 44px;
+      border-radius: 26px;
+      justify-content: flex-start;
+      padding: 0 14px;
+      box-shadow: 0 0 0 1.5px var(--notif-color, #38bdf8), 0 15px 35px rgba(0,0,0,0.9);
+      background: rgba(10, 10, 15, 0.96);
+    }
+
+    .phone-island-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transform: scale(0.85) translateY(6px);
+      transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+      width: 100%;
+    }
+
+    .phone-dynamic-island.is-active .phone-island-content {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      transition-delay: 0.15s;
+    }
+
+    .phone-island-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      box-shadow: 0 0 12px currentColor;
+    }
+
+    .phone-island-text {
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: -0.01em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── Apple Story-Style Resume Toast Pop-up ── */
+    #resume-toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 99999;
+      width: calc(100% - 56px);
+      max-width: 380px;
+      background: var(--surface);
+      backdrop-filter: blur(35px);
+      -webkit-backdrop-filter: blur(35px);
+      border: 1.5px solid var(--border);
+      border-radius: 30px;
+      padding: 22px;
+      box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.25), 0 0 35px var(--glow-shadow);
+      transform: translateY(150%) scale(0.88);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dark #resume-toast {
+      box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.6), 0 0 35px var(--glow-shadow);
+    }
+
+    #resume-toast.toast-visible {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .story-progress-container {
+      width: 100%;
+      height: 6px;
+      background: rgba(15, 23, 42, 0.1);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .dark .story-progress-container {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .story-progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #d946ef);
+      border-radius: 9999px;
+      box-shadow: 0 0 14px var(--accent);
+      transition: width 0.1s linear;
     }
 
     /* ── Ambient Background Motion ── */
     .ambient-orb {
-      animation: floatOrb 15s ease-in-out infinite alternate;
+      animation: floatOrb 16s ease-in-out infinite alternate;
       will-change: transform;
     }
     .ambient-orb-2 {
-      animation: floatOrb 18s ease-in-out infinite alternate-reverse;
+      animation: floatOrb 19s ease-in-out infinite alternate-reverse;
       will-change: transform;
     }
     .ambient-orb-3 {
-      animation: floatOrb 20s ease-in-out infinite alternate;
+      animation: floatOrb 22s ease-in-out infinite alternate;
       will-change: transform;
     }
 
     @keyframes floatOrb {
       0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(3%, 5%) scale(1.05); }
+      50% { transform: translate(3%, 4%) scale(1.05); }
       100% { transform: translate(-2%, -3%) scale(0.95); }
     }
 
-    /* ── Main Content Fluid Entrance ── */
     #main-content-flow {
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
     #main-content-flow.content-visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* ── Structural Tech Grid Texture ── */
     .bg-grid-pattern {
       position: fixed; inset: 0; z-index: -25;
       background-image: 
@@ -112,12 +449,11 @@
         linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
       background-size: 40px 40px;
       pointer-events: none;
-      transition: background-image 1s ease;
+      transition: background-image 0.8s ease;
     }
 
-    /* ── Splash Screen Preloader Animations ── */
     #splash-screen {
-      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
     }
     
     .splash-flex-container {
@@ -131,7 +467,7 @@
       flex-shrink: 0;
       transform: scale(0);
       opacity: 0;
-      animation: logoEnter 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: logoEnter 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       perspective: 1200px;
     }
 
@@ -142,12 +478,12 @@
 
     .splash-logo-inner {
       position: relative;
-      width: 112px; height: 112px;
+      width: 116px; height: 116px;
       transform-style: preserve-3d;
-      transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 0 20px var(--glow-shadow);
+      transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 25px var(--glow-shadow);
       border-radius: 9999px;
-      animation: logoPulse 2s 2.5s infinite alternate ease-in-out;
+      animation: logoPulse 2s 2.2s infinite alternate ease-in-out;
     }
 
     @media (min-width: 640px) {
@@ -156,7 +492,7 @@
 
     @keyframes logoPulse {
       0% { box-shadow: 0 0 20px var(--glow-shadow); }
-      100% { box-shadow: 0 0 45px var(--glow-shadow), 0 0 15px var(--accent); }
+      100% { box-shadow: 0 0 45px var(--glow-shadow), 0 0 18px var(--accent); }
     }
 
     .splash-front, .splash-back {
@@ -179,7 +515,7 @@
       opacity: 0;
       overflow: hidden;
       white-space: nowrap;
-      transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 1.3s cubic-bezier(0.16, 1, 0.3, 1);
       transform: translateX(-20px) scale(0.95);
       filter: blur(5px);
     }
@@ -196,73 +532,83 @@
       max-width: 0;
       opacity: 0;
       margin-left: 0;
-      transform: translateX(-50px) scale(0.5);
+      transform: translateX(-40px) scale(0.6);
       filter: blur(10px);
-      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* ── Fluid 3D Glassmorphism Panel ── */
+    /* ── Fluid Glass Panels ── */
     .glass-panel {
       background: var(--surface);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
+      backdrop-filter: blur(36px);
+      -webkit-backdrop-filter: blur(36px);
       border: 1px solid var(--border);
-      box-shadow: inset 0 1px 1px var(--glass-shine), 0 8px 32px 0 rgba(0, 0, 0, 0.12);
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 
+        inset 0 1px 1px var(--glass-shine), 
+        0 16px 35px -10px rgba(15, 23, 42, 0.08),
+        0 0 20px -5px var(--glow-shadow);
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     }
     
     .dark .glass-panel {
-      box-shadow: inset 0 1px 1px var(--glass-shine), 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+      box-shadow: inset 0 1px 1px var(--glass-shine), 0 16px 40px 0 rgba(0, 0, 0, 0.45);
     }
 
-    /* ── Cinematic Grain Overlay ── */
     .grain-overlay {
       position: fixed; inset: 0; z-index: 9999;
-      pointer-events: none; opacity: 0.06;
+      pointer-events: none; opacity: 0.04;
       mix-blend-mode: overlay;
     }
 
-    /* ── Scroll Reveal ── */
-    .reveal-node {
-      opacity: 0; filter: blur(10px); transform: translateY(20px);
-      transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
-                  filter 1.4s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal-node.is-visible {
-      opacity: 1; filter: blur(0px); transform: translateY(0px);
-    }
-
-    /* ── Spotlight Hover Card (ORIGINAL PLUS EDGE GLOW) ── */
+    /* ── Spotlight Hover Cards ── */
     .spotlight-card {
       position: relative; overflow: hidden;
       --mouse-x: 50%; --mouse-y: 50%;
       transform: perspective(1000px) translateZ(0);
-      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.8s ease;
+      transition: 
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
+        box-shadow 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
+        border-color 0.6s ease;
     }
     
     .spotlight-card:hover {
-      transform: translateY(-6px) scale(1.015);
-      border-color: rgba(255, 255, 255, 0.25);
-      box-shadow: inset 0 1px 1px var(--glass-shine), 0 20px 40px -10px var(--glow-shadow), 0 30px 60px -15px rgba(0, 0, 0, 0.5);
+      transform: translateY(-8px) scale(1.015);
+      border-color: rgba(14, 165, 233, 0.45);
+      box-shadow: 
+        inset 0 1px 1px var(--glass-shine), 
+        0 28px 55px -12px var(--glow-shadow), 
+        0 35px 65px -15px rgba(0, 0, 0, 0.18);
       z-index: 10;
     }
 
-    /* Original Inner Hover Glow */
+    .dark .spotlight-card:hover {
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 
+        inset 0 1px 1px var(--glass-shine), 
+        0 28px 55px -12px var(--glow-shadow), 
+        0 35px 65px -15px rgba(0, 0, 0, 0.55);
+    }
+
     .spotlight-card::before {
       content: '';
       position: absolute; inset: 0;
       background: radial-gradient(
         800px circle at var(--mouse-x) var(--mouse-y),
-        rgba(255, 255, 255, 0.06),
+        rgba(14, 165, 233, 0.08),
         transparent 40%
       );
       z-index: 1; pointer-events: none;
-      opacity: 0; transition: opacity 0.8s ease;
+      opacity: 0; transition: opacity 0.6s ease;
+    }
+    .dark .spotlight-card::before {
+      background: radial-gradient(
+        800px circle at var(--mouse-x) var(--mouse-y),
+        rgba(255, 255, 255, 0.08),
+        transparent 40%
+      );
     }
     .spotlight-card:hover::before { opacity: 1; }
 
-    /* NEW: Perimeter-Only Spinning Navy Edge */
     @property --border-angle {
       syntax: "<angle>";
       inherits: true;
@@ -273,22 +619,21 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      padding: 2px; /* Thickness of the glowing edge */
+      padding: 1.5px;
       background: conic-gradient(
         from var(--border-angle),
         transparent 60%,
         rgba(30, 58, 138, 0.8) 80%,
         rgba(56, 189, 248, 1) 100%
       );
-      /* The mask forces the gradient to ONLY display on the 2px padding edge */
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       z-index: 20;
       pointer-events: none;
-      animation: border-spin 3s linear infinite;
+      animation: border-spin 4s linear infinite;
       opacity: 0;
-      transition: opacity 0.6s ease;
+      transition: opacity 0.5s ease;
     }
     .spotlight-card:hover::after {
       opacity: 1;
@@ -297,13 +642,15 @@
       100% { --border-angle: 1turn; }
     }
 
-    /* ── Micro-Interactions ── */
     .click-shrink {
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    }
+    .click-shrink:hover {
+      transform: translateY(-2px) scale(1.03);
     }
     .click-shrink:active {
-      transform: scale(0.96) !important;
-      transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      transform: scale(0.94) !important;
+      transition: transform 0.08s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
     
     .section-label {
@@ -312,22 +659,29 @@
       font-size: 0.75rem; font-weight: 800;
       background: linear-gradient(135deg, var(--accent), #d946ef);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      drop-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      drop-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
 
-    .text-gradient {
-      background: linear-gradient(to right, var(--text-primary), var(--accent));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-
-    /* ── Dynamic Island & iPhone Mockup ── */
     .iphone-frame {
       width: 320px; height: 640px; background: #0a0a0a;
       border-radius: 60px; position: relative;
-      box-shadow: inset 0 2px 4px rgba(255,255,255,0.15), 0 0 0 10px #1f2937, 0 0 0 12px #334155, 0 30px 50px -15px rgba(0, 0, 0, 0.7), 0 0 40px var(--glow-shadow);
+      box-shadow: 
+        inset 0 2px 4px rgba(255,255,255,0.15), 
+        0 0 0 10px #1e293b, 
+        0 0 0 12px #334155, 
+        0 30px 50px -15px rgba(0, 0, 0, 0.35), 
+        0 0 40px var(--glow-shadow);
       padding: 12px;
       transform: perspective(1000px) rotateY(-8deg) rotateX(4deg);
-      transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .dark .iphone-frame {
+      box-shadow: 
+        inset 0 2px 4px rgba(255,255,255,0.15), 
+        0 0 0 10px #1f2937, 
+        0 0 0 12px #334155, 
+        0 30px 50px -15px rgba(0, 0, 0, 0.7), 
+        0 0 40px var(--glow-shadow);
     }
     .iphone-frame:hover {
       transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.03);
@@ -341,14 +695,13 @@
       position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
       width: 120px; height: 32px; background: #000;
       border-radius: 20px; z-index: 30;
-      box-shadow: inset 0 -1px 2px rgba(255,255,255,0.1);
+      box-shadow: inset 0 -1px 2px rgba(255,255,255,0.15);
     }
     .iphone-btn {
       position: absolute; background: #334155; border-radius: 2px;
       box-shadow: inset 1px 0 2px rgba(255,255,255,0.2);
     }
 
-    /* ── Phone Image Slideshow Crossfade ── */
     .slideshow-img {
       position: absolute;
       inset: 0;
@@ -357,60 +710,57 @@
       object-fit: contain; 
       opacity: 0;
       background-color: #000;
-      transition: opacity 1.8s ease-in-out; 
+      transition: opacity 1.6s ease-in-out; 
     }
     .slideshow-img.active {
       opacity: 1;
     }
 
-    /* ── Timeline ── */
     .timeline-line {
       position: absolute; left: 15px; top: 0; bottom: 0; width: 2px;
       background: linear-gradient(to bottom, var(--accent), #d946ef, transparent);
-      opacity: 0.8;
+      opacity: 0.85;
     }
     .timeline-dot {
       position: absolute; left: 9px; top: 6px; width: 14px; height: 14px;
       background: var(--surface); border: 2px solid var(--accent); border-radius: 50%; z-index: 2; 
       box-shadow: 0 0 15px var(--accent);
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+    }
+    .spotlight-card:hover ~ .timeline-dot,
+    .spotlight-card:hover + .timeline-dot {
+      transform: scale(1.4);
+      box-shadow: 0 0 28px var(--accent);
     }
 
-    /* ── Social Card Brands ── */
     .social-card { transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-    
     .dark .social-github:hover { color: #fff; background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); box-shadow: 0 10px 25px -5px rgba(255,255,255,0.2); }
-    .social-github:hover { color: #000; background: rgba(0,0,0,0.1); border-color: rgba(0,0,0,0.4); }
-    
+    .social-github:hover { color: #0f172a; background: rgba(15,23,42,0.08); border-color: rgba(15,23,42,0.4); }
     .social-linkedin:hover { color: #0a66c2; background: rgba(10,102,194,0.1); border-color: rgba(10,102,194,0.4); box-shadow: 0 10px 25px -5px rgba(10,102,194,0.3); }
     .social-youtube:hover { color: #ff0000; background: rgba(255,0,0,0.1); border-color: rgba(255,0,0,0.4); box-shadow: 0 10px 25px -5px rgba(255,0,0,0.3); }
-    
     .dark .social-x:hover { color: #fff; background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); box-shadow: 0 10px 25px -5px rgba(255,255,255,0.2); }
-    .social-x:hover { color: #000; background: rgba(0,0,0,0.1); border-color: rgba(0,0,0,0.4); }
-    
+    .social-x:hover { color: #0f172a; background: rgba(15,23,42,0.08); border-color: rgba(15,23,42,0.4); }
     .social-instagram:hover { color: #e1306c; background: rgba(225,48,108,0.1); border-color: rgba(225,48,108,0.4); box-shadow: 0 10px 25px -5px rgba(225,48,108,0.3); }
     .social-reddit:hover { color: #ff4500; background: rgba(255,69,0,0.1); border-color: rgba(255,69,0,0.4); box-shadow: 0 10px 25px -5px rgba(255,69,0,0.3); }
-    
     .dark .social-threads:hover { color: #fff; background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); box-shadow: 0 10px 25px -5px rgba(255,255,255,0.2); }
-    .social-threads:hover { color: #000; background: rgba(0,0,0,0.1); border-color: rgba(0,0,0,0.4); }
+    .social-threads:hover { color: #0f172a; background: rgba(15,23,42,0.08); border-color: rgba(15,23,42,0.4); }
 
-    /* ── Social Redirect Blur Animation ── */
     .redirect-overlay {
       position: fixed; inset: 0; z-index: 9999999;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
       display: flex; align-items: center; justify-content: center;
       opacity: 0; pointer-events: none;
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .redirect-overlay.active {
       opacity: 1; pointer-events: auto;
     }
     .redirect-icon-wrapper {
       font-size: 4rem; 
-      transform: scale(0.5) translateY(40px);
+      transform: scale(0.5) translateY(30px);
       opacity: 0;
-      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
       filter: drop-shadow(0 10px 25px rgba(0,0,0,0.6));
     }
     .redirect-overlay.active .redirect-icon-wrapper {
@@ -418,20 +768,19 @@
       opacity: 1;
     }
 
-    /* ── Scrollbar ── */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--background); }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
-    .pulse-dot { animation: pulseGlowDot 3s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+    .pulse-dot { animation: pulseGlowDot 2.8s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
     @keyframes pulseGlowDot {
-      0%, 100% { transform: scale(1); opacity: 0.7; box-shadow: 0 0 0px currentColor; }
-      50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 15px 2px currentColor; }
+      0%, 100% { transform: scale(1); opacity: 0.75; box-shadow: 0 0 0px currentColor; }
+      50% { transform: scale(1.35); opacity: 1; box-shadow: 0 0 16px 3px currentColor; }
     }
   </style>
 </head>
-<body class="antialiased selection:bg-accent/40 selection:text-text-primary">
+<body class="antialiased selection:bg-accent/30 selection:text-text-primary">
 
   <!-- ── Splash Screen Preloader ── -->
   <div id="splash-screen" class="fixed inset-0 z-[999999] bg-background flex flex-col items-center justify-center">
@@ -446,7 +795,7 @@
       </div>
 
       <div class="splash-text-wrapper">
-        <h1 class="text-3xl sm:text-5xl font-black tracking-tighter text-gradient pb-1 leading-none">SHREYASH VERMA</h1>
+        <h1 class="text-3xl sm:text-5xl font-black tracking-tighter apple-siri-shimmer pb-1 leading-none">SHREYASH VERMA</h1>
         <p class="text-text-secondary text-xs sm:text-sm font-bold tracking-[0.15em] mt-2 uppercase">
           BCA <span class="text-accent mx-1">/</span> Tech Content
         </p>
@@ -454,20 +803,17 @@
     </div>
   </div>
 
-  <!-- Structural Tech Grid -->
   <div class="bg-grid-pattern"></div>
 
-  <!-- Vibrant Cinematic Colored Orbs with Ambient Animation -->
+  <!-- Vibrant Cinematic Colored Orbs -->
   <div class="fixed inset-0 -z-30 overflow-hidden pointer-events-none" aria-hidden="true">
-    <div class="ambient-orb absolute top-[-5%] left-[-10%] w-[55vw] h-[55vw] rounded-full bg-gradient-to-br from-cyan-400/40 to-blue-600/40 blur-[130px] dark:opacity-85"></div>
-    <div class="ambient-orb-2 absolute bottom-[-10%] right-[-5%] w-[65vw] h-[65vw] rounded-full bg-gradient-to-tr from-fuchsia-500/30 to-purple-600/30 blur-[150px] dark:opacity-75"></div>
-    <div class="ambient-orb-3 absolute top-[25%] left-[25%] w-[45vw] h-[45vw] rounded-full bg-gradient-to-r from-emerald-400/25 to-teal-500/25 blur-[140px] dark:opacity-65"></div>
+    <div class="ambient-orb absolute top-[-5%] left-[-10%] w-[55vw] h-[55vw] rounded-full bg-gradient-to-br from-cyan-400/45 via-blue-500/35 to-indigo-600/30 blur-[130px] opacity-80 dark:opacity-75"></div>
+    <div class="ambient-orb-2 absolute bottom-[-10%] right-[-5%] w-[65vw] h-[65vw] rounded-full bg-gradient-to-tr from-fuchsia-400/40 via-purple-500/30 to-pink-500/25 blur-[150px] opacity-75 dark:opacity-65"></div>
+    <div class="ambient-orb-3 absolute top-[25%] left-[25%] w-[45vw] h-[45vw] rounded-full bg-gradient-to-r from-emerald-400/35 via-teal-400/25 to-cyan-500/20 blur-[140px] opacity-70 dark:opacity-55"></div>
   </div>
 
-  <!-- Interactive WebGL-Style Particle Canvas -->
   <canvas id="particle-canvas" class="fixed inset-0 -z-20 pointer-events-none"></canvas>
 
-  <!-- Cinematic Grain Texture -->
   <svg class="grain-overlay" xmlns="http://www.w3.org/2000/svg">
     <filter id="grain">
       <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch"/>
@@ -476,58 +822,86 @@
     <rect width="100%" height="100%" filter="url(#grain)"/>
   </svg>
 
-  <!-- Navbar (Centered Menu) -->
-  <nav class="fixed top-0 inset-x-0 z-[100] glass-panel border-x-0 border-t-0 rounded-none shadow-sm transition-all duration-700 ease-out">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative">
-      <a href="#" class="flex items-center gap-3 group click-shrink relative z-10">
-        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 text-white flex items-center justify-center font-bold text-lg overflow-hidden border border-white/20 shadow-lg group-hover:scale-105 transition-transform duration-500 ease-out">
-          <img src="https://i.ibb.co/mrk9d9TV/channels4-profile.jpg" alt="Logo" class="w-full h-full object-cover" />
-        </div>
-        <div>
-          <span class="block text-text-primary font-bold tracking-tight leading-none text-lg">SHREYASH</span>
-          <span class="block text-text-secondary text-[0.65rem] tracking-widest leading-none mt-1">VERMA</span>
-        </div>
-      </a>
+  <!-- ── Feature 3: Adaptive Glass Dynamic Island Navigation ── -->
+  <div id="nav-island-wrapper">
+    <nav id="dynamic-island-nav" class="nav-island">
       
-      <!-- Centered Menu Items -->
-      <div class="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-10 text-sm font-semibold">
-        <a href="#manifesto" class="text-text-secondary hover:text-accent transition-colors hover:-translate-y-0.5 transform inline-block duration-500">About Me</a>
-        <a href="#flagship" class="text-text-secondary hover:text-accent transition-colors hover:-translate-y-0.5 transform inline-block duration-500">Process</a>
-        <a href="#transmissions" class="text-text-secondary hover:text-accent transition-colors hover:-translate-y-0.5 transform inline-block duration-500">Academic Status</a>
-        <a href="#contact" class="text-text-secondary hover:text-accent transition-colors hover:-translate-y-0.5 transform inline-block duration-500">Contact</a>
+      <!-- Expanded Version (Full Menu) -->
+      <div class="nav-view nav-expanded-view">
+        <a href="#top" class="flex items-center gap-3 group click-shrink">
+          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 text-white flex items-center justify-center font-bold text-lg overflow-hidden border border-white/20 shadow-md group-hover:scale-105 transition-transform duration-500">
+            <img src="https://i.ibb.co/mrk9d9TV/channels4-profile.jpg" alt="Logo" class="w-full h-full object-cover" />
+          </div>
+          <div>
+            <span class="block text-text-primary font-bold tracking-tight leading-none text-base">SHREYASH</span>
+            <span class="block text-text-secondary text-[0.6rem] tracking-widest leading-none mt-1">VERMA</span>
+          </div>
+        </a>
+        
+        <div class="hidden lg:flex items-center gap-1">
+          <a href="#top" class="nav-link active-section" data-section="top">Home</a>
+          <a href="#manifesto" class="nav-link" data-section="manifesto">About Me</a>
+          <a href="#flagship" class="nav-link" data-section="flagship">Process</a>
+          <a href="#transmissions" class="nav-link" data-section="transmissions">Academics</a>
+          <a href="#stack" class="nav-link" data-section="stack">Roadmap</a>
+          <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button class="theme-toggle-btn w-9 h-9 flex items-center justify-center rounded-full text-text-secondary glass-panel hover:text-accent hover:border-accent hover:scale-110 click-shrink transition-all duration-400 shadow-sm">
+            <i class="fa-solid fa-moon dark:hidden"></i>
+            <i class="fa-solid fa-sun hidden dark:block text-amber-300 drop-shadow-[0_0_10px_rgba(252,211,77,0.8)]"></i>
+          </button>
+
+          <a href="#contact" class="hidden sm:inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-bold rounded-full hover:shadow-[0_0_25px_var(--glow-shadow)] border border-white/20 transition-all duration-400 click-shrink gap-2">
+            <i class="fa-solid fa-paper-plane"></i> Initiate Contact
+          </a>
+          
+          <button id="mobileToggle" class="lg:hidden text-text-secondary hover:text-text-primary transition-colors duration-400 p-2 glass-panel rounded-xl">
+            <i class="fa-solid fa-bars text-lg"></i>
+          </button>
+        </div>
       </div>
 
-      <div class="flex items-center gap-4 relative z-10">
-        <!-- Theme Toggle Button -->
-        <button id="themeToggle" class="w-10 h-10 flex items-center justify-center rounded-full text-text-secondary glass-panel hover:text-accent hover:border-accent hover:scale-110 click-shrink transition-all duration-500 shadow-md">
+      <!-- Collapsed Version (Compact Island) -->
+      <div class="nav-view nav-compact-view">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 overflow-hidden border border-white/20 shrink-0 flex items-center justify-center">
+            <img src="https://i.ibb.co/mrk9d9TV/channels4-profile.jpg" alt="Logo" class="w-full h-full object-cover" />
+          </div>
+          <span class="text-text-primary font-extrabold text-sm tracking-tight">SHREYASH</span>
+        </div>
+        
+        <div class="flex items-center gap-2">
+          <span id="compact-section-badge" class="px-3.5 py-1 bg-accent/15 border border-accent/50 rounded-full text-xs text-accent font-mono font-bold uppercase tracking-wider shadow-[0_0_15px_var(--glow-shadow)] transition-all duration-300">
+            <i class="fa-solid fa-house text-accent"></i> <span>HOME</span>
+          </span>
+        </div>
+
+        <button class="theme-toggle-btn w-8 h-8 flex items-center justify-center rounded-full text-text-secondary glass-panel hover:text-accent hover:border-accent hover:scale-110 click-shrink transition-all duration-300 shadow-sm">
           <i class="fa-solid fa-moon dark:hidden"></i>
           <i class="fa-solid fa-sun hidden dark:block text-amber-300 drop-shadow-[0_0_10px_rgba(252,211,77,0.8)]"></i>
         </button>
-
-        <a href="#contact" class="hidden md:inline-flex items-center px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-bold rounded-full hover:shadow-[0_0_25px_var(--glow-shadow)] border border-white/20 transition-all duration-500 click-shrink gap-2 transform hover:-translate-y-0.5">
-          <i class="fa-solid fa-paper-plane"></i> Initiate Contact
-        </a>
-        <button id="mobileToggle" class="lg:hidden text-text-secondary hover:text-text-primary transition-colors duration-500 p-2 glass-panel rounded-xl">
-          <i class="fa-solid fa-bars text-xl"></i>
-        </button>
       </div>
-    </div>
-    
-    <div id="mobileMenu" class="lg:hidden absolute top-20 left-0 right-0 glass-panel border-x-0 hidden flex-col px-6 py-6 gap-4 shadow-2xl transition-all duration-500 ease-out z-[99]">
-      <a href="#manifesto" class="mobile-link text-text-secondary hover:text-text-primary font-semibold text-base transition-colors">About Me</a>
-      <a href="#flagship" class="mobile-link text-text-secondary hover:text-text-primary font-semibold text-base transition-colors">Process</a>
-      <a href="#transmissions" class="mobile-link text-text-secondary hover:text-text-primary font-semibold text-base transition-colors">Academic Status</a>
-      <a href="#stack" class="mobile-link text-text-secondary hover:text-text-primary font-semibold text-base transition-colors">Roadmap</a>
-      <a href="#contact" class="mobile-link inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-full mt-4 click-shrink gap-2 shadow-lg border border-white/20">
-        <i class="fa-solid fa-paper-plane"></i> Initiate Contact
-      </a>
-    </div>
-  </nav>
+
+    </nav>
+  </div>
+  
+  <div id="mobileMenu" class="fixed top-24 left-6 right-6 z-[999] glass-panel border border-border rounded-3xl hidden flex-col px-6 py-6 gap-4 shadow-2xl transition-all duration-500 ease-out">
+    <a href="#top" class="mobile-link text-text-secondary hover:text-text-primary font-semibold text-base transition-colors">Home</a>
+    <a href="#manifesto" class="mobile-link text-text-secondary hover:text-text-primary font-semibold text-base transition-colors">About Me</a>
+    <a href="#flagship" class="mobile-link text-text-secondary hover:text-text-primary font-semibold text-base transition-colors">Process</a>
+    <a href="#transmissions" class="mobile-link text-text-secondary hover:text-text-primary font-semibold text-base transition-colors">Academics</a>
+    <a href="#stack" class="mobile-link text-text-secondary hover:text-text-primary font-semibold text-base transition-colors">Roadmap</a>
+    <a href="#contact" class="mobile-link inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-full mt-4 click-shrink gap-2 shadow-lg border border-white/20">
+      <i class="fa-solid fa-paper-plane"></i> Initiate Contact
+    </a>
+  </div>
 
   <!-- Main Website Content -->
   <main id="main-content-flow">
     
-    <section class="min-h-screen flex items-center pt-24 pb-12 relative z-10">
+    <section id="top" class="min-h-screen flex items-center pt-28 pb-12 relative z-10" data-section-name="HOME" data-tint="cyan">
       <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center w-full">
         <div class="space-y-8 reveal-node">
           <div class="inline-flex items-center gap-2 glass-panel text-emerald-600 dark:text-emerald-400 text-sm font-bold px-5 py-2 rounded-full shadow-lg border border-emerald-500/30">
@@ -536,7 +910,8 @@
           </div>
           
           <div>
-            <h1 class="text-6xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-[0.9] text-gradient pb-2 drop-shadow-lg">
+            <!-- Feature 1 Applied: Siri-Style Shimmer -->
+            <h1 class="text-6xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-[0.9] apple-siri-shimmer pb-2 drop-shadow-lg">
               SHREYASH<br/>VERMA
             </h1>
             <p class="text-xl sm:text-2xl text-text-secondary mt-6 font-semibold transition-colors duration-500">
@@ -545,17 +920,17 @@
           </div>
 
           <div class="flex flex-wrap items-center gap-4 pt-4">
-            <a href="#transmissions" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-fuchsia-600 text-white font-bold rounded-full flex items-center gap-3 transition-all duration-500 ease-out click-shrink shadow-[0_10px_30px_-10px_rgba(147,51,234,0.6)] hover:shadow-[0_15px_40px_-10px_rgba(147,51,234,0.8)] border border-white/20 transform hover:-translate-y-1">
+            <a href="#transmissions" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-fuchsia-600 text-white font-bold rounded-full flex items-center gap-3 transition-all duration-400 ease-out click-shrink shadow-[0_10px_30px_-10px_rgba(147,51,234,0.6)] hover:shadow-[0_15px_40px_-10px_rgba(147,51,234,0.8)] border border-white/20">
               <i class="fa-solid fa-play"></i> Watch Latest
             </a>
-            <a href="#stack" class="px-8 py-4 glass-panel text-text-primary font-bold rounded-full transition-all duration-500 ease-out click-shrink hover:border-accent hover:text-accent transform hover:-translate-y-1">
+            <a href="#stack" class="px-8 py-4 glass-panel text-text-primary font-bold rounded-full transition-all duration-400 ease-out click-shrink hover:border-accent hover:text-accent">
               Explore Stack
             </a>
           </div>
         </div>
 
         <!-- 1ST IPHONE MOCKUP -->
-        <div class="flex justify-center lg:justify-end reveal-node" style="transition-delay: 0.2s;">
+        <div class="flex justify-center lg:justify-end reveal-node" style="transition-delay: 0.15s;">
           <div class="iphone-frame scale-[0.85] sm:scale-100 origin-center lg:origin-right">
             <div class="iphone-btn left-[-16px] top-[110px] w-[4px] h-[26px]"></div>
             <div class="iphone-btn left-[-16px] top-[160px] w-[4px] h-[50px]"></div>
@@ -565,9 +940,7 @@
             <div class="iphone-screen bg-black">
               <div class="dynamic-island"></div>
               
-              <!-- Phone 1 Image Slideshow -->
               <div class="phone-slideshow absolute inset-0 w-full h-full">
-                <!-- Replace these 4 links with your Phone 1 Images -->
                 <img src="https://i.ibb.co/XrNLQwSC/Whats-App-Image-2026-07-01-at-1-15-10-PM.jpg" class="slideshow-img active" alt="Slide 1">
                 <img src="https://i.ibb.co/1J48HnqW/Whats-App-Image-2026-07-01-at-1-15-09-PM.jpg" class="slideshow-img" alt="Slide 2">
                 <img src="https://i.ibb.co/nM1PD1GN/Whats-App-Image-2026-07-01-at-1-15-09-PM-1.jpg" class="slideshow-img" alt="Slide 3">
@@ -589,45 +962,45 @@
     </section>
 
     <!-- About Section -->
-    <section id="manifesto" class="py-24 sm:py-32 relative z-10">
+    <section id="manifesto" class="py-24 sm:py-32 relative z-10" data-section-name="ABOUT ME" data-tint="blue">
       <div class="max-w-7xl mx-auto px-6">
         <div class="reveal-node mb-16 text-center md:text-left">
           <span class="section-label glass-panel px-4 py-2 rounded-full inline-block mb-4 shadow-sm border-accent/20 text-accent">01 — Who I Am</span>
-          <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mt-2 tracking-tighter text-text-primary transition-colors duration-500">About Me </h2>
+          <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mt-2 tracking-tighter text-text-primary transition-colors duration-500">About Me</h2>
         </div>
 
         <div class="flex flex-col md:flex-row gap-6 mb-6 items-stretch">
           <div class="w-full md:w-2/3 flex flex-col spotlight-card glass-panel rounded-3xl p-8 sm:p-10 reveal-node group" style="transition-delay: 0.1s;">
-            <div class="h-2 w-16 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mb-8 shrink-0 shadow-[0_0_15px_rgba(56,189,248,0.6)] relative z-10"></div>
+            <div class="h-2 w-16 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mb-8 shrink-0 shadow-[0_0_15px_rgba(56,189,248,0.6)] relative z-10 group-hover:w-24 transition-all duration-500"></div>
             <div class="relative z-10 flex-grow flex flex-col">
               <h3 class="text-3xl font-bold mb-6 text-text-primary transition-colors duration-500">The Core</h3>
               <p class="text-text-secondary text-lg sm:text-xl leading-relaxed flex-grow font-medium transition-colors duration-500">
                 I am Shreyash Verma, currently a second-year BCA student. I am passionate about AI and Machine Learning, which is why I am actively mastering Python and building hands-on tech projects. Alongside my studies, I am dedicated to professional content creation, where I translate complex technical concepts into clear, engaging videos for my audience on YouTube and Instagram.
               </p>
               <div class="mt-8 flex flex-wrap items-center gap-3 text-sm text-text-primary font-bold">
-                <span class="px-5 py-2.5 glass-panel rounded-full shadow-sm hover:scale-105 hover:border-accent transition-all duration-500 ease-out cursor-default">Python</span>
-                <span class="px-5 py-2.5 glass-panel rounded-full shadow-sm hover:scale-105 hover:border-fuchsia-500 transition-all duration-500 ease-out cursor-default">Content Creation</span>
-                <span class="px-5 py-2.5 glass-panel rounded-full shadow-sm hover:scale-105 hover:border-emerald-500 transition-all duration-500 ease-out cursor-default">AI/ML</span>
+                <span class="px-5 py-2.5 glass-panel rounded-full shadow-sm hover:scale-105 hover:border-accent transition-all duration-400 ease-out cursor-default">Python</span>
+                <span class="px-5 py-2.5 glass-panel rounded-full shadow-sm hover:scale-105 hover:border-fuchsia-500 transition-all duration-400 ease-out cursor-default">Content Creation</span>
+                <span class="px-5 py-2.5 glass-panel rounded-full shadow-sm hover:scale-105 hover:border-emerald-500 transition-all duration-400 ease-out cursor-default">AI/ML</span>
               </div>
             </div>
           </div>
 
-          <div class="w-full md:w-1/3 flex flex-col spotlight-card glass-panel rounded-3xl p-8 sm:p-10 reveal-node" style="transition-delay: 0.2s;">
-            <div class="h-2 w-16 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full mb-8 shrink-0 shadow-[0_0_15px_rgba(52,211,153,0.6)] relative z-10"></div>
+          <div class="w-full md:w-1/3 flex flex-col spotlight-card glass-panel rounded-3xl p-8 sm:p-10 reveal-node group" style="transition-delay: 0.2s;">
+            <div class="h-2 w-16 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full mb-8 shrink-0 shadow-[0_0_15px_rgba(52,211,153,0.6)] relative z-10 group-hover:w-24 transition-all duration-500"></div>
             <div class="relative z-10 flex-grow flex flex-col">
               <h3 class="text-2xl font-bold mb-6 text-text-primary transition-colors duration-500">Academics</h3>
               <ul class="space-y-5 text-text-secondary font-semibold">
-                <li class="flex items-start gap-3 glass-panel p-3 rounded-2xl hover:border-emerald-500/50 transition-colors duration-500"><span class="text-emerald-500 mt-0.5"><i class="fa-solid fa-arrow-right text-sm"></i></span> BCA Curriculum</li>
-                <li class="flex items-start gap-3 glass-panel p-3 rounded-2xl hover:border-emerald-500/50 transition-colors duration-500"><span class="text-emerald-500 mt-0.5"><i class="fa-solid fa-arrow-right text-sm"></i></span> Mastering Python</li>
-                <li class="flex items-start gap-3 glass-panel p-3 rounded-2xl hover:border-emerald-500/50 transition-colors duration-500"><span class="text-emerald-500 mt-0.5"><i class="fa-solid fa-arrow-right text-sm"></i></span> Future AI/ML Project Roadmap</li>
+                <li class="flex items-start gap-3 glass-panel p-3 rounded-2xl hover:border-emerald-500/50 transition-colors duration-400"><span class="text-emerald-500 mt-0.5"><i class="fa-solid fa-arrow-right text-sm"></i></span> BCA Curriculum</li>
+                <li class="flex items-start gap-3 glass-panel p-3 rounded-2xl hover:border-emerald-500/50 transition-colors duration-400"><span class="text-emerald-500 mt-0.5"><i class="fa-solid fa-arrow-right text-sm"></i></span> Mastering Python</li>
+                <li class="flex items-start gap-3 glass-panel p-3 rounded-2xl hover:border-emerald-500/50 transition-colors duration-400"><span class="text-emerald-500 mt-0.5"><i class="fa-solid fa-arrow-right text-sm"></i></span> Future AI/ML Project Roadmap</li>
               </ul>
             </div>
           </div>
         </div>
 
         <div class="flex flex-col md:flex-row gap-6 items-stretch">
-          <div class="w-full md:w-1/3 flex flex-col spotlight-card glass-panel rounded-3xl p-8 sm:p-10 reveal-node" style="transition-delay: 0.3s;">
-            <div class="h-2 w-16 bg-gradient-to-r from-fuchsia-400 to-purple-500 rounded-full mb-8 shrink-0 shadow-[0_0_15px_rgba(217,70,239,0.6)] relative z-10"></div>
+          <div class="w-full md:w-1/3 flex flex-col spotlight-card glass-panel rounded-3xl p-8 sm:p-10 reveal-node group" style="transition-delay: 0.3s;">
+            <div class="h-2 w-16 bg-gradient-to-r from-fuchsia-400 to-purple-500 rounded-full mb-8 shrink-0 shadow-[0_0_15px_rgba(217,70,239,0.6)] relative z-10 group-hover:w-24 transition-all duration-500"></div>
             <div class="relative z-10 flex-grow flex flex-col">
               <h3 class="text-2xl font-bold mb-4 text-text-primary transition-colors duration-500">The Creator</h3>
               <p class="text-text-secondary leading-relaxed font-medium transition-colors duration-500">
@@ -636,14 +1009,14 @@
             </div>
           </div>
 
-          <div class="w-full md:w-2/3 flex flex-col spotlight-card glass-panel rounded-3xl p-8 sm:p-10 reveal-node" style="transition-delay: 0.4s;">
-            <div class="h-2 w-16 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full mb-8 shrink-0 shadow-[0_0_15px_rgba(245,158,11,0.6)] relative z-10"></div>
+          <div class="w-full md:w-2/3 flex flex-col spotlight-card glass-panel rounded-3xl p-8 sm:p-10 reveal-node group" style="transition-delay: 0.4s;">
+            <div class="h-2 w-16 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full mb-8 shrink-0 shadow-[0_0_15px_rgba(245,158,11,0.6)] relative z-10 group-hover:w-24 transition-all duration-500"></div>
             <div class="relative z-10 flex-grow flex flex-col">
               <h3 class="text-3xl font-bold mb-8 text-text-primary transition-colors duration-500">Current Focus</h3>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 
-                <div class="flex flex-col items-start gap-4 glass-panel p-5 rounded-2xl hover:-translate-y-2 hover:border-rose-500/50 transition-all duration-500 ease-out group/focus">
-                  <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center shrink-0 shadow-lg border border-white/20 group-hover/focus:scale-110 transition-transform duration-500 ease-out">
+                <div class="flex flex-col items-start gap-4 glass-panel p-5 rounded-2xl hover:-translate-y-2 hover:border-rose-500/50 transition-all duration-400 ease-out group/focus">
+                  <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center shrink-0 shadow-lg border border-white/20 group-hover/focus:scale-110 transition-transform duration-400 ease-out">
                     <i class="fa-solid fa-video text-white text-lg drop-shadow-md"></i>
                   </div>
                   <div>
@@ -652,8 +1025,8 @@
                   </div>
                 </div>
                 
-                <div class="flex flex-col items-start gap-4 glass-panel p-5 rounded-2xl hover:-translate-y-2 hover:border-blue-500/50 transition-all duration-500 ease-out group/focus">
-                  <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shrink-0 shadow-lg border border-white/20 group-hover/focus:scale-110 transition-transform duration-500 ease-out">
+                <div class="flex flex-col items-start gap-4 glass-panel p-5 rounded-2xl hover:-translate-y-2 hover:border-blue-500/50 transition-all duration-400 ease-out group/focus">
+                  <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shrink-0 shadow-lg border border-white/20 group-hover/focus:scale-110 transition-transform duration-400 ease-out">
                     <i class="fa-solid fa-brain text-white text-lg drop-shadow-md"></i>
                   </div>
                   <div>
@@ -662,8 +1035,8 @@
                   </div>
                 </div>
                 
-                <div class="flex flex-col items-start gap-4 glass-panel p-5 rounded-2xl hover:-translate-y-2 hover:border-emerald-500/50 transition-all duration-500 ease-out group/focus">
-                  <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shrink-0 shadow-lg border border-white/20 group-hover/focus:scale-110 transition-transform duration-500 ease-out">
+                <div class="flex flex-col items-start gap-4 glass-panel p-5 rounded-2xl hover:-translate-y-2 hover:border-emerald-500/50 transition-all duration-400 ease-out group/focus">
+                  <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shrink-0 shadow-lg border border-white/20 group-hover/focus:scale-110 transition-transform duration-400 ease-out">
                     <i class="fa-solid fa-code text-white text-lg drop-shadow-md"></i>
                   </div>
                   <div>
@@ -680,7 +1053,7 @@
     </section>
 
     <!-- Process Section -->
-    <section id="flagship" class="py-24 sm:py-32 relative z-10 glass-panel border-x-0 rounded-none">
+    <section id="flagship" class="py-24 sm:py-32 relative z-10 glass-panel border-x-0 rounded-none" data-section-name="PROCESS" data-tint="purple">
       <div class="max-w-7xl mx-auto px-6">
         
         <div class="max-w-2xl mb-20 reveal-node text-center lg:text-left">
@@ -741,7 +1114,7 @@
             </div>
           </div>
 
-          <!-- 2ND IPHONE MOCKUP -->
+          <!-- 2ND IPHONE MOCKUP WITH FEATURE 4: DYNAMIC ISLAND NOTIFICATIONS -->
           <div class="lg:col-span-5 order-1 lg:order-2 lg:sticky lg:top-32 h-fit flex justify-center lg:justify-end reveal-node" style="transition-delay: 0.2s;">
             <div class="iphone-frame scale-[0.85] sm:scale-100 origin-center lg:origin-right">
               <div class="iphone-btn left-[-16px] top-[110px] w-[4px] h-[26px]"></div>
@@ -750,11 +1123,17 @@
               <div class="iphone-btn right-[-16px] top-[180px] w-[4px] h-[70px]"></div>
               
               <div class="iphone-screen bg-black">
-                <div class="dynamic-island"></div>
+                <!-- Feature 4 Interactive Island Container -->
+                <div id="process-phone-island" class="phone-dynamic-island">
+                  <div class="phone-island-content">
+                    <div id="phone-island-icon" class="phone-island-icon bg-red-600">
+                      <i class="fa-brands fa-youtube"></i>
+                    </div>
+                    <span id="phone-island-text" class="phone-island-text">100 subs completed</span>
+                  </div>
+                </div>
                 
-                <!-- Phone 2 Image Slideshow -->
                 <div class="phone-slideshow absolute inset-0 w-full h-full">
-                  <!-- Replace these 4 links with your Phone 2 Images -->
                   <img src="https://i.ibb.co/LDv7sc6S/Whats-App-Image-2026-07-06-at-3-04-26-PM.jpg" class="slideshow-img active" alt="Slide 1">
                   <img src="https://i.ibb.co/pB46JSRw/Whats-App-Image-2026-07-06-at-3-04-27-PM.jpg" class="slideshow-img" alt="Slide 2">
                   <img src="https://i.ibb.co/27wWsGwS/Whats-App-Image-2026-07-06-at-3-04-27-PM-1.jpg" class="slideshow-img" alt="Slide 3">
@@ -778,24 +1157,23 @@
     </section>
 
     <!-- Work/Academic Status -->
-    <section id="transmissions" class="py-24 sm:py-32 relative z-10">
+    <section id="transmissions" class="py-24 sm:py-32 relative z-10" data-section-name="ACADEMICS" data-tint="emerald">
       <div class="max-w-7xl mx-auto px-6">
         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-6 mb-16 reveal-node text-center sm:text-left">
           <div>
             <span class="section-label glass-panel px-4 py-2 rounded-full inline-block mb-4 shadow-sm border-blue-500/20 text-blue-500">03 — Work</span>
-            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mt-2 tracking-tighter text-text-primary transition-colors duration-500"> Academic Status </h2>
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mt-2 tracking-tighter text-text-primary transition-colors duration-500">Academic Status</h2>
           </div>
-          <a href="https://github.com/Shreyash-Verma16" target="_blank" class="flex items-center justify-center gap-2 text-white bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3 rounded-full font-bold shadow-[0_0_20px_rgba(59,130,246,0.4)] hover:shadow-[0_0_30px_rgba(59,130,246,0.6)] border border-white/20 hover:-translate-y-1 transition-all duration-500 ease-out click-shrink">
+          <a href="https://github.com/Shreyash-Verma16" target="_blank" class="flex items-center justify-center gap-2 text-white bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3 rounded-full font-bold shadow-[0_0_20px_rgba(59,130,246,0.4)] hover:shadow-[0_0_30px_rgba(59,130,246,0.6)] border border-white/20 click-shrink">
             View GitHub <i class="fa-solid fa-arrow-right text-sm"></i>
           </a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
           
-          <!-- Card 1 -->
-          <a href="YOUR_PROJECT_LINK_HERE" class="spotlight-card block group glass-panel hover:border-blue-500 rounded-3xl overflow-hidden reveal-node hover:-translate-y-2 transition-all duration-700 ease-out shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(59,130,246,0.2)]" style="transition-delay: 0.1s;">
-            <div class="h-48 bg-gradient-to-br from-blue-500/10 to-indigo-600/10 flex items-center justify-center border-b border-border transition-colors duration-700 ease-out group-hover:from-blue-500/25 group-hover:to-indigo-600/25 relative z-10">
-              <i class="fa-solid fa-clone text-6xl text-blue-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.6)] group-hover:scale-110 group-hover:drop-shadow-[0_0_25px_rgba(59,130,246,0.9)] transition-all duration-700 ease-out"></i>
+          <a href="YOUR_PROJECT_LINK_HERE" class="spotlight-card block group glass-panel hover:border-blue-500 rounded-3xl overflow-hidden reveal-node shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(59,130,246,0.25)]" style="transition-delay: 0.1s;">
+            <div class="h-48 bg-gradient-to-br from-blue-500/10 to-indigo-600/10 flex items-center justify-center border-b border-border transition-colors duration-500 ease-out group-hover:from-blue-500/25 group-hover:to-indigo-600/25 relative z-10">
+              <i class="fa-solid fa-clone text-6xl text-blue-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.6)] group-hover:scale-110 group-hover:drop-shadow-[0_0_25px_rgba(59,130,246,0.9)] transition-all duration-500 ease-out"></i>
             </div>
             <div class="p-8 relative z-10">
               <div class="text-xs font-bold font-mono text-blue-500 dark:text-blue-400 mb-2 tracking-wider transition-colors duration-500">PERSONAL PROJECT</div>
@@ -807,10 +1185,9 @@
             </div>
           </a>
 
-          <!-- Card 2 -->
-          <a href="YOUR_PORTFOLIO_LINK_HERE" class="spotlight-card block group glass-panel hover:border-fuchsia-500 rounded-3xl overflow-hidden reveal-node hover:-translate-y-2 transition-all duration-700 ease-out shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(217,70,239,0.2)]" style="transition-delay: 0.2s;">
-            <div class="h-48 bg-gradient-to-br from-fuchsia-500/10 to-purple-600/10 flex items-center justify-center border-b border-border transition-colors duration-700 ease-out group-hover:from-fuchsia-500/25 group-hover:to-purple-600/25 relative z-10">
-              <i class="fa-solid fa-wand-magic-sparkles text-6xl text-fuchsia-500 drop-shadow-[0_0_15px_rgba(217,70,239,0.6)] group-hover:scale-110 group-hover:drop-shadow-[0_0_25px_rgba(217,70,239,0.9)] transition-all duration-700 ease-out"></i>
+          <a href="YOUR_PORTFOLIO_LINK_HERE" class="spotlight-card block group glass-panel hover:border-fuchsia-500 rounded-3xl overflow-hidden reveal-node shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(217,70,239,0.25)]" style="transition-delay: 0.2s;">
+            <div class="h-48 bg-gradient-to-br from-fuchsia-500/10 to-purple-600/10 flex items-center justify-center border-b border-border transition-colors duration-500 ease-out group-hover:from-fuchsia-500/25 group-hover:to-purple-600/25 relative z-10">
+              <i class="fa-solid fa-wand-magic-sparkles text-6xl text-fuchsia-500 drop-shadow-[0_0_15px_rgba(217,70,239,0.6)] group-hover:scale-110 group-hover:drop-shadow-[0_0_25px_rgba(217,70,239,0.9)] transition-all duration-500 ease-out"></i>
             </div>
             <div class="p-8 relative z-10">
               <div class="text-xs font-bold font-mono text-fuchsia-500 dark:text-fuchsia-400 mb-2 tracking-wider transition-colors duration-500">The Portfolio Website</div>
@@ -822,10 +1199,9 @@
             </div>
           </a>
 
-          <!-- Card 3 -->
-          <a href="YOUR_PYTHON_LINK_HERE" class="spotlight-card block group glass-panel hover:border-emerald-500 rounded-3xl overflow-hidden reveal-node hover:-translate-y-2 transition-all duration-700 ease-out shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.2)]" style="transition-delay: 0.3s;">
-            <div class="h-48 bg-gradient-to-br from-emerald-500/10 to-teal-600/10 flex items-center justify-center border-b border-border transition-colors duration-700 ease-out group-hover:from-emerald-500/25 group-hover:to-teal-600/25 relative z-10">
-              <i class="fa-brands fa-python text-6xl text-emerald-500 drop-shadow-[0_0_15px_rgba(16,185,129,0.6)] group-hover:scale-110 group-hover:drop-shadow-[0_0_25px_rgba(16,185,129,0.9)] transition-all duration-700 ease-out"></i>
+          <a href="YOUR_PYTHON_LINK_HERE" class="spotlight-card block group glass-panel hover:border-emerald-500 rounded-3xl overflow-hidden reveal-node shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.25)]" style="transition-delay: 0.3s;">
+            <div class="h-48 bg-gradient-to-br from-emerald-500/10 to-teal-600/10 flex items-center justify-center border-b border-border transition-colors duration-500 ease-out group-hover:from-emerald-500/25 group-hover:to-teal-600/25 relative z-10">
+              <i class="fa-brands fa-python text-6xl text-emerald-500 drop-shadow-[0_0_15px_rgba(16,185,129,0.6)] group-hover:scale-110 group-hover:drop-shadow-[0_0_25px_rgba(16,185,129,0.9)] transition-all duration-500 ease-out"></i>
             </div>
             <div class="p-8 relative z-10">
               <div class="text-xs font-bold font-mono text-emerald-500 dark:text-emerald-400 mb-2 tracking-wider transition-colors duration-500">The Python Projects</div>
@@ -837,10 +1213,9 @@
             </div>
           </a>
 
-          <!-- Card 4 -->
-          <a href="YOUR_LOG_LINK_HERE" class="spotlight-card block group glass-panel hover:border-amber-500 rounded-3xl overflow-hidden reveal-node hover:-translate-y-2 transition-all duration-700 ease-out shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(245,158,11,0.2)]" style="transition-delay: 0.4s;">
-            <div class="h-48 bg-gradient-to-br from-amber-500/10 to-orange-600/10 flex items-center justify-center border-b border-border transition-colors duration-700 ease-out group-hover:from-amber-500/25 group-hover:to-orange-600/25 relative z-10">
-              <i class="fa-solid fa-book-open text-6xl text-amber-500 drop-shadow-[0_0_15px_rgba(245,158,11,0.6)] group-hover:scale-110 group-hover:drop-shadow-[0_0_25px_rgba(245,158,11,0.9)] transition-all duration-700 ease-out"></i>
+          <a href="YOUR_LOG_LINK_HERE" class="spotlight-card block group glass-panel hover:border-amber-500 rounded-3xl overflow-hidden reveal-node shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(245,158,11,0.25)]" style="transition-delay: 0.4s;">
+            <div class="h-48 bg-gradient-to-br from-amber-500/10 to-orange-600/10 flex items-center justify-center border-b border-border transition-colors duration-500 ease-out group-hover:from-amber-500/25 group-hover:to-orange-600/25 relative z-10">
+              <i class="fa-solid fa-book-open text-6xl text-amber-500 drop-shadow-[0_0_15px_rgba(245,158,11,0.6)] group-hover:scale-110 group-hover:drop-shadow-[0_0_25px_rgba(245,158,11,0.9)] transition-all duration-500 ease-out"></i>
             </div>
             <div class="p-8 relative z-10">
               <div class="text-xs font-bold font-mono text-amber-500 dark:text-amber-400 mb-2 tracking-wider transition-colors duration-500">Public Learning Journey</div>
@@ -856,7 +1231,7 @@
     </section>
 
     <!-- Roadmap Section -->
-    <section id="stack" class="py-24 sm:py-32 relative z-10 glass-panel border-x-0 rounded-none">
+    <section id="stack" class="py-24 sm:py-32 relative z-10 glass-panel border-x-0 rounded-none" data-section-name="ROADMAP" data-tint="rose">
       <div class="max-w-7xl mx-auto px-6">
         <div class="reveal-node mb-16 text-center md:text-left">
           <span class="section-label glass-panel px-4 py-2 rounded-full inline-block mb-4 shadow-sm border-rose-500/20 text-rose-500">ROADMAP</span>
@@ -865,26 +1240,26 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-6 max-w-5xl mx-auto md:mx-0">
           <div class="space-y-6">
-            <div class="spotlight-card reveal-node flex gap-6 items-center glass-panel p-6 rounded-3xl hover:scale-[1.02] hover:-translate-y-1 hover:border-rose-500/30 transition-all duration-500 ease-out group" style="transition-delay: 0.1s;">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center shrink-0 shadow-lg font-bold text-white font-mono text-xl border border-white/20 group-hover:scale-110 transition-transform duration-500 ease-out relative z-10">01</div>
+            <div class="spotlight-card reveal-node flex gap-6 items-center glass-panel p-6 rounded-3xl hover:scale-[1.02] hover:-translate-y-1 hover:border-rose-500/30 transition-all duration-400 ease-out group" style="transition-delay: 0.1s;">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center shrink-0 shadow-lg font-bold text-white font-mono text-xl border border-white/20 group-hover:scale-110 transition-transform duration-400 ease-out relative z-10">01</div>
               <p class="text-lg font-bold text-text-primary leading-snug transition-colors duration-500 relative z-10">Building a dedicated digital presence in the tech space.</p>
             </div>
-            <div class="spotlight-card reveal-node flex gap-6 items-center glass-panel p-6 rounded-3xl hover:scale-[1.02] hover:-translate-y-1 hover:border-rose-500/30 transition-all duration-500 ease-out group" style="transition-delay: 0.2s;">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-fuchsia-500 flex items-center justify-center shrink-0 shadow-lg font-bold text-white font-mono text-xl border border-white/20 group-hover:scale-110 transition-transform duration-500 ease-out relative z-10">02</div>
+            <div class="spotlight-card reveal-node flex gap-6 items-center glass-panel p-6 rounded-3xl hover:scale-[1.02] hover:-translate-y-1 hover:border-rose-500/30 transition-all duration-400 ease-out group" style="transition-delay: 0.2s;">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-fuchsia-500 flex items-center justify-center shrink-0 shadow-lg font-bold text-white font-mono text-xl border border-white/20 group-hover:scale-110 transition-transform duration-400 ease-out relative z-10">02</div>
               <p class="text-lg font-bold text-text-primary leading-snug transition-colors duration-500 relative z-10">Balancing BCA academics with hands-on AI and Machine Learning studies.</p>
             </div>
-            <div class="spotlight-card reveal-node flex gap-6 items-center glass-panel p-6 rounded-3xl hover:scale-[1.02] hover:-translate-y-1 hover:border-rose-500/30 transition-all duration-500 ease-out group" style="transition-delay: 0.3s;">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center shrink-0 shadow-lg font-bold text-white font-mono text-xl border border-white/20 group-hover:scale-110 transition-transform duration-500 ease-out relative z-10">03</div>
+            <div class="spotlight-card reveal-node flex gap-6 items-center glass-panel p-6 rounded-3xl hover:scale-[1.02] hover:-translate-y-1 hover:border-rose-500/30 transition-all duration-400 ease-out group" style="transition-delay: 0.3s;">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center shrink-0 shadow-lg font-bold text-white font-mono text-xl border border-white/20 group-hover:scale-110 transition-transform duration-400 ease-out relative z-10">03</div>
               <p class="text-lg font-bold text-text-primary leading-snug transition-colors duration-500 relative z-10">Consistently delivering clear, professional tech education to my audience.</p>
             </div>
           </div>
           <div class="space-y-6">
-            <div class="spotlight-card reveal-node flex gap-6 items-center glass-panel p-6 rounded-3xl hover:scale-[1.02] hover:-translate-y-1 hover:border-rose-500/30 transition-all duration-500 ease-out group" style="transition-delay: 0.4s;">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shrink-0 shadow-lg font-bold text-white font-mono text-xl border border-white/20 group-hover:scale-110 transition-transform duration-500 ease-out relative z-10">04</div>
+            <div class="spotlight-card reveal-node flex gap-6 items-center glass-panel p-6 rounded-3xl hover:scale-[1.02] hover:-translate-y-1 hover:border-rose-500/30 transition-all duration-400 ease-out group" style="transition-delay: 0.4s;">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shrink-0 shadow-lg font-bold text-white font-mono text-xl border border-white/20 group-hover:scale-110 transition-transform duration-400 ease-out relative z-10">04</div>
               <p class="text-lg font-bold text-text-primary leading-snug transition-colors duration-500 relative z-10">Creating practical software projects to apply new skills.</p>
             </div>
-            <div class="spotlight-card reveal-node flex gap-6 items-center glass-panel p-6 rounded-3xl hover:scale-[1.02] hover:-translate-y-1 hover:border-rose-500/30 transition-all duration-500 ease-out group" style="transition-delay: 0.5s;">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shrink-0 shadow-lg font-bold text-white font-mono text-xl border border-white/20 group-hover:scale-110 transition-transform duration-500 ease-out relative z-10">05</div>
+            <div class="spotlight-card reveal-node flex gap-6 items-center glass-panel p-6 rounded-3xl hover:scale-[1.02] hover:-translate-y-1 hover:border-rose-500/30 transition-all duration-400 ease-out group" style="transition-delay: 0.5s;">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shrink-0 shadow-lg font-bold text-white font-mono text-xl border border-white/20 group-hover:scale-110 transition-transform duration-400 ease-out relative z-10">05</div>
               <p class="text-lg font-bold text-text-primary leading-snug transition-colors duration-500 relative z-10">Sharing my coding and development journey openly as I grow.</p>
             </div>
           </div>
@@ -893,7 +1268,7 @@
     </section>
 
     <!-- Contact/Social Links -->
-    <section id="contact" class="py-24 sm:py-32 relative z-10 border-t border-border/50">
+    <section id="contact" class="py-24 sm:py-32 relative z-10 border-t border-border/50" data-section-name="CONTACT" data-tint="cyan">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16 reveal-node">
           <span class="section-label glass-panel px-4 py-2 rounded-full inline-block mb-4 shadow-sm border-cyan-500/20 text-cyan-500">05 — Connect</span>
@@ -902,21 +1277,21 @@
         </div>
 
         <div class="max-w-3xl mx-auto mb-16 reveal-node" style="transition-delay: 0.1s;">
-          <div class="spotlight-card glass-panel rounded-3xl p-8 sm:p-10 relative group hover:-translate-y-2 transition-all duration-700 ease-out">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-cyan-500/25 transition-all duration-700 ease-out"></div>
+          <div class="spotlight-card glass-panel rounded-3xl p-8 sm:p-10 relative group">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-cyan-500/25 transition-all duration-500 ease-out"></div>
             
             <form action="https://formspree.io/f/xaqgkvwy" method="POST" class="space-y-6 relative z-10">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div class="space-y-2">
                   <label for="name" class="text-xs font-bold font-mono text-text-secondary uppercase tracking-wider pl-1 transition-colors duration-500">Name</label>
                   <input type="text" id="name" name="name" required
-                    class="w-full bg-white dark:bg-slate-800 border border-border/50 text-slate-900 dark:text-white placeholder-slate-500 text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all duration-500 shadow-inner"
+                    class="w-full bg-white dark:bg-slate-800 border border-border/50 text-slate-900 dark:text-white placeholder-slate-500 text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all duration-400 shadow-inner"
                     placeholder="John Doe">
                 </div>
                 <div class="space-y-2">
                   <label for="email" class="text-xs font-bold font-mono text-text-secondary uppercase tracking-wider pl-1 transition-colors duration-500">Email</label>
                   <input type="email" id="email" name="email" required
-                    class="w-full bg-white dark:bg-slate-800 border border-border/50 text-slate-900 dark:text-white placeholder-slate-500 text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all duration-500 shadow-inner"
+                    class="w-full bg-white dark:bg-slate-800 border border-border/50 text-slate-900 dark:text-white placeholder-slate-500 text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all duration-400 shadow-inner"
                     placeholder="john@example.com">
                 </div>
               </div>
@@ -924,11 +1299,11 @@
               <div class="space-y-2">
                 <label for="message" class="text-xs font-bold font-mono text-text-secondary uppercase tracking-wider pl-1 transition-colors duration-500">Message</label>
                 <textarea id="message" name="message" rows="4" required
-                  class="w-full bg-white dark:bg-slate-800 border border-border/50 text-slate-900 dark:text-white placeholder-slate-500 text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all duration-500 shadow-inner resize-none"
+                  class="w-full bg-white dark:bg-slate-800 border border-border/50 text-slate-900 dark:text-white placeholder-slate-500 text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all duration-400 shadow-inner resize-none"
                   placeholder="Let's connect..."></textarea>
               </div>
 
-              <button type="submit" class="w-full flex items-center justify-center gap-2 text-white bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-4 rounded-xl font-bold shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] border border-white/20 hover:-translate-y-1 transition-all duration-500 ease-out click-shrink">
+              <button type="submit" class="w-full flex items-center justify-center gap-2 text-white bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-4 rounded-xl font-bold shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] border border-white/20 click-shrink">
                 <i class="fa-solid fa-paper-plane text-sm"></i> Send Message
               </button>
             </form>
@@ -937,45 +1312,45 @@
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
           <a href="https://github.com/Shreyash-Verma16" target="_blank" class="social-card social-github spotlight-card glass-panel rounded-3xl p-8 flex flex-col items-center justify-center gap-4 reveal-node text-text-secondary" style="transition-delay: 0.2s;">
-            <i class="fa-brands fa-github text-4xl drop-shadow-md transition-transform duration-500 relative z-10"></i>
+            <i class="fa-brands fa-github text-4xl drop-shadow-md transition-transform duration-400 relative z-10"></i>
             <span class="text-sm font-bold tracking-wide relative z-10">GitHub</span>
           </a>
           
           <a href="https://www.linkedin.com/in/shreyash-verma-9b791b400" target="_blank" class="social-card social-linkedin spotlight-card glass-panel rounded-3xl p-8 flex flex-col items-center justify-center gap-4 reveal-node text-text-secondary" style="transition-delay: 0.3s;">
-            <i class="fa-brands fa-linkedin-in text-4xl drop-shadow-md transition-transform duration-500 relative z-10"></i>
+            <i class="fa-brands fa-linkedin-in text-4xl drop-shadow-md transition-transform duration-400 relative z-10"></i>
             <span class="text-sm font-bold tracking-wide relative z-10">LinkedIn</span>
           </a>
           
           <a href="https://www.youtube.com/channel/UC-n2JCyBM5b61_gSOdsQ3sA" target="_blank" class="social-card social-youtube spotlight-card glass-panel rounded-3xl p-8 flex flex-col items-center justify-center gap-4 reveal-node text-text-secondary" style="transition-delay: 0.4s;">
-            <i class="fa-brands fa-youtube text-4xl drop-shadow-md transition-transform duration-500 relative z-10"></i>
+            <i class="fa-brands fa-youtube text-4xl drop-shadow-md transition-transform duration-400 relative z-10"></i>
             <span class="text-sm font-bold tracking-wide relative z-10">YouTube</span>
           </a>
         
           <a href="mailto:shreyashverma.4518@gmail.com" class="social-card hover:border-accent hover:text-accent spotlight-card glass-panel rounded-3xl p-8 flex flex-col items-center justify-center gap-4 reveal-node text-text-secondary" style="transition-delay: 0.5s;">
             <div class="relative">
-               <div class="absolute inset-0 bg-accent blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-700 ease-out"></div>
-               <i class="fa-solid fa-envelope text-4xl drop-shadow-md relative z-10 transition-transform duration-500"></i>
+               <div class="absolute inset-0 bg-accent blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-500 ease-out"></div>
+               <i class="fa-solid fa-envelope text-4xl drop-shadow-md relative z-10 transition-transform duration-400"></i>
             </div>
             <span class="text-sm font-bold tracking-wide relative z-10">Email</span>
           </a>
 
           <a href="https://www.instagram.com/techwith_shreyash/" target="_blank" class="social-card social-instagram spotlight-card glass-panel rounded-3xl p-8 flex flex-col items-center justify-center gap-4 reveal-node text-text-secondary" style="transition-delay: 0.6s;">
-            <i class="fa-brands fa-instagram text-4xl drop-shadow-md transition-transform duration-500 relative z-10"></i>
+            <i class="fa-brands fa-instagram text-4xl drop-shadow-md transition-transform duration-400 relative z-10"></i>
             <span class="text-sm font-bold tracking-wide relative z-10">Instagram</span>
           </a>
 
           <a href="https://www.reddit.com/user/Shreyash_verma_16/" target="_blank" class="social-card social-reddit spotlight-card glass-panel rounded-3xl p-8 flex flex-col items-center justify-center gap-4 reveal-node text-text-secondary" style="transition-delay: 0.7s;">
-            <i class="fa-brands fa-reddit text-4xl drop-shadow-md transition-transform duration-500 relative z-10"></i>
+            <i class="fa-brands fa-reddit text-4xl drop-shadow-md transition-transform duration-400 relative z-10"></i>
             <span class="text-sm font-bold tracking-wide relative z-10">Reddit</span>
           </a>
 
           <a href="https://x.com/Shreyash_verma_" target="_blank" class="social-card social-x spotlight-card glass-panel rounded-3xl p-8 flex flex-col items-center justify-center gap-4 reveal-node text-text-secondary" style="transition-delay: 0.8s;">
-            <i class="fa-brands fa-x-twitter text-4xl drop-shadow-md transition-transform duration-500 relative z-10"></i>
+            <i class="fa-brands fa-x-twitter text-4xl drop-shadow-md transition-transform duration-400 relative z-10"></i>
             <span class="text-sm font-bold tracking-wide relative z-10">Twitter</span>
           </a>
 
           <a href="https://www.threads.com/@shreyash.verma.16" target="_blank" class="social-card social-threads spotlight-card glass-panel rounded-3xl p-8 flex flex-col items-center justify-center gap-4 reveal-node text-text-secondary" style="transition-delay: 0.9s;">
-            <i class="fa-brands fa-threads text-4xl drop-shadow-md transition-transform duration-500 relative z-10"></i>
+            <i class="fa-brands fa-threads text-4xl drop-shadow-md transition-transform duration-400 relative z-10"></i>
             <span class="text-sm font-bold tracking-wide relative z-10">Threads</span>
           </a>
         </div>
@@ -984,17 +1359,46 @@
 
     <footer class="py-12 glass-panel border-x-0 border-b-0 rounded-none relative z-10 transition-colors duration-500 mt-12">
       <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-3 opacity-80 hover:opacity-100 transition-opacity duration-500 ease-out">
+        <div class="flex items-center gap-3 opacity-80 hover:opacity-100 transition-opacity duration-400 ease-out">
           <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 text-white flex items-center justify-center font-bold text-xs overflow-hidden border border-white/20 shadow-md">
             <img src="https://i.ibb.co/mrk9d9TV/channels4-profile.jpg" alt="Logo" class="w-full h-full object-cover" />
           </div>
-          <span class="text-text-primary text-sm font-bold tracking-wide transition-colors duration-500">Shreyash Verma </span>
+          <span class="text-text-primary text-sm font-bold tracking-wide transition-colors duration-500">Shreyash Verma</span>
         </div>
-        <p class="text-text-secondary text-xs font-bold font-mono glass-panel px-4 py-2 rounded-full hover:border-accent transition-colors duration-500 ease-out">&copy; 2026 Shreyash Verma. </p>
+        <p class="text-text-secondary text-xs font-bold font-mono glass-panel px-4 py-2 rounded-full hover:border-accent transition-colors duration-400 ease-out">&copy; 2026 Shreyash Verma.</p>
       </div>
     </footer>
     
   </main>
+
+  <!-- ── Apple Story-Style Resume Pop-up Toast ── -->
+  <div id="resume-toast">
+    <div class="story-progress-container">
+      <div id="story-progress-fill" class="story-progress-bar"></div>
+    </div>
+    <div class="flex items-start justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white shrink-0 shadow-lg border border-white/20">
+          <i class="fa-solid fa-file-arrow-down text-lg"></i>
+        </div>
+        <div>
+          <h4 class="text-text-primary font-bold text-sm leading-tight">Shreyash_Verma_Resume.pdf</h4>
+          <p class="text-text-secondary text-xs mt-0.5">Do you want to download my resume?</p>
+        </div>
+      </div>
+      <button id="close-toast-btn" class="text-text-muted hover:text-text-primary transition-colors p-1">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+    </div>
+    <div class="mt-4 flex items-center gap-3">
+      <a href="#" id="download-yes-btn" class="flex-1 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-xs rounded-xl text-center shadow-md hover:shadow-[0_0_20px_var(--glow-shadow)] border border-white/20 click-shrink">
+        Yes, Download
+      </a>
+      <button id="dismiss-toast-btn" class="px-4 py-2.5 glass-panel text-text-secondary hover:text-text-primary font-bold text-xs rounded-xl transition-all duration-300">
+        Maybe Later
+      </button>
+    </div>
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -1015,6 +1419,45 @@
         }, 4000); 
       });
 
+      // ── Feature 4: Phone Mockup Dynamic Island Notification Sequence ──
+      const phoneIsland = document.getElementById('process-phone-island');
+      const phoneIconEl = document.getElementById('phone-island-icon');
+      const phoneTextEl = document.getElementById('phone-island-text');
+
+      const phoneNotifications = [
+        { platform: 'youtube', text: '100 subs completed', icon: 'fa-brands fa-youtube', color: '#ff0000', bg: 'rgba(255, 0, 0, 0.2)' },
+        { platform: 'youtube', text: '1 lakh+ views completed', icon: 'fa-brands fa-youtube', color: '#ff0000', bg: 'rgba(255, 0, 0, 0.2)' },
+        { platform: 'instagram', text: '1M+ views completed', icon: 'fa-brands fa-instagram', color: '#e1306c', bg: 'rgba(225, 48, 108, 0.2)' },
+        { platform: 'instagram', text: '150+ followers completed', icon: 'fa-brands fa-instagram', color: '#e1306c', bg: 'rgba(225, 48, 108, 0.2)' },
+        { platform: 'comment-insta', text: 'Good job!', icon: 'fa-solid fa-comment-dots', color: '#d946ef', bg: 'rgba(217, 70, 239, 0.2)' },
+        { platform: 'comment-general', text: 'Good information', icon: 'fa-solid fa-check-circle', color: '#0284c7', bg: 'rgba(2, 132, 199, 0.2)' }
+      ];
+
+      if (phoneIsland && phoneIconEl && phoneTextEl) {
+        let notifIndex = 0;
+
+        function triggerNextPhoneNotification() {
+          const currentNotif = phoneNotifications[notifIndex];
+          
+          phoneIconEl.style.backgroundColor = currentNotif.color;
+          phoneIconEl.innerHTML = `<i class="${currentNotif.icon}"></i>`;
+          phoneTextEl.textContent = currentNotif.text;
+          phoneIsland.style.setProperty('--notif-color', currentNotif.color);
+
+          phoneIsland.classList.add('is-active');
+
+          setTimeout(() => {
+            phoneIsland.classList.remove('is-active');
+            notifIndex = (notifIndex + 1) % phoneNotifications.length;
+          }, 4200);
+        }
+
+        setTimeout(() => {
+          triggerNextPhoneNotification();
+          setInterval(triggerNextPhoneNotification, 6500);
+        }, 3000);
+      }
+
       // ── Splash Screen Preloader Logic ──
       const splashScreen = document.getElementById('splash-screen');
       const splashFlex = document.getElementById('splash-flex');
@@ -1024,47 +1467,235 @@
       if (splashScreen && splashFlex) {
         setTimeout(() => {
           splashLogoInner.style.transform = 'rotateY(180deg)';
-        }, 1500);
+        }, 1400);
 
         setTimeout(() => {
           splashFlex.classList.add('expand');
-        }, 2500);
+        }, 2400);
         
         setTimeout(() => {
           splashFlex.classList.remove('expand');
           splashFlex.classList.add('absorb');
-        }, 4500); 
+        }, 4400); 
 
         setTimeout(() => {
           splashScreen.style.opacity = '0';
-          splashScreen.style.transform = 'scale(1.1)';
+          splashScreen.style.transform = 'scale(1.08)';
           splashScreen.style.pointerEvents = 'none';
           
           if(mainContent) mainContent.classList.add('content-visible');
-        }, 5300); 
+        }, 5100); 
 
         setTimeout(() => {
           splashScreen.remove();
-        }, 6500); 
+        }, 6200); 
       } else {
         if (mainContent) mainContent.classList.add('content-visible');
       }
 
       // ── Theme Management ──
-      const themeToggle = document.getElementById('themeToggle');
+      const themeToggleBtns = document.querySelectorAll('.theme-toggle-btn');
       const htmlEl = document.documentElement;
 
-      themeToggle.addEventListener('click', () => {
-        htmlEl.classList.toggle('dark');
+      themeToggleBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          htmlEl.classList.toggle('dark');
+        });
       });
 
-      // ── Native Interactive Particle Field Engine (Subtle & Fluid) ──
+      // ── Feature 3: Adaptive Dynamic Island Navigation Engine ──
+      const navIsland = document.getElementById('dynamic-island-nav');
+      const navIslandWrapper = document.getElementById('nav-island-wrapper');
+      const compactSectionBadge = document.getElementById('compact-section-badge');
+      let isHovered = false;
+      let idleTimer = null;
+      let notifyTimer = null;
+      let currentSectionId = 'top';
+
+      function expandIsland() {
+        if (navIsland) {
+          navIsland.classList.remove('is-collapsed', 'island-notify');
+        }
+      }
+
+      function collapseIsland() {
+        if (!isHovered && window.scrollY > 80) {
+          if (navIsland) navIsland.classList.add('is-collapsed');
+        }
+      }
+
+      if (navIsland && navIslandWrapper) {
+        navIslandWrapper.addEventListener('mouseenter', () => {
+          isHovered = true;
+          expandIsland();
+        });
+
+        navIslandWrapper.addEventListener('mouseleave', () => {
+          isHovered = false;
+          if (window.scrollY > 80) {
+            idleTimer = setTimeout(collapseIsland, 450);
+          }
+        });
+
+        navIsland.addEventListener('click', (e) => {
+          if (!e.target.closest('a') && !e.target.closest('button')) {
+            expandIsland();
+          }
+        });
+      }
+
+      window.addEventListener('scroll', () => {
+        clearTimeout(idleTimer);
+        
+        if (window.scrollY > 80) {
+          if (!isHovered && !navIsland.classList.contains('is-collapsed')) {
+            navIsland.classList.add('is-collapsed');
+          }
+          idleTimer = setTimeout(() => {
+            if (!isHovered) expandIsland();
+          }, 2400);
+        } else {
+          expandIsland();
+        }
+      });
+
+      // ── Color-Adaptive Navigation Notification Engine ──
+      const sections = document.querySelectorAll('section[id], section#top');
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      const tintMap = {
+        cyan: { tint: 'rgba(2, 132, 199, 0.22)', border: 'rgba(56, 189, 248, 0.55)', accent: '#38bdf8' },
+        blue: { tint: 'rgba(37, 99, 235, 0.22)', border: 'rgba(96, 165, 250, 0.55)', accent: '#60a5fa' },
+        purple: { tint: 'rgba(147, 51, 234, 0.22)', border: 'rgba(192, 132, 252, 0.55)', accent: '#c084fc' },
+        emerald: { tint: 'rgba(5, 150, 105, 0.22)', border: 'rgba(52, 211, 153, 0.55)', accent: '#34d399' },
+        rose: { tint: 'rgba(225, 29, 72, 0.22)', border: 'rgba(251, 113, 133, 0.55)', accent: '#fb7185' }
+      };
+
+      const iconMap = {
+        top: '<i class="fa-solid fa-house text-accent"></i>',
+        manifesto: '<i class="fa-solid fa-user-astronaut text-blue-400"></i>',
+        flagship: '<i class="fa-solid fa-wand-magic-sparkles text-purple-400"></i>',
+        transmissions: '<i class="fa-solid fa-graduation-cap text-emerald-400"></i>',
+        stack: '<i class="fa-solid fa-map-location-dot text-rose-400"></i>',
+        contact: '<i class="fa-solid fa-paper-plane text-cyan-400"></i>'
+      };
+
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const currentId = entry.target.getAttribute('id');
+            const sectionName = entry.target.getAttribute('data-section-name') || "ABOUT ME";
+            const tintKey = entry.target.getAttribute('data-tint') || "cyan";
+
+            if (currentSectionId !== currentId && navIsland.classList.contains('is-collapsed') && window.scrollY > 150) {
+              currentSectionId = currentId;
+              
+              navIsland.classList.remove('island-notify');
+              void navIsland.offsetWidth; 
+              navIsland.classList.add('island-notify');
+
+              clearTimeout(notifyTimer);
+              notifyTimer = setTimeout(() => {
+                navIsland.classList.remove('island-notify');
+              }, 1800);
+            } else {
+              currentSectionId = currentId;
+            }
+
+            if (compactSectionBadge) {
+              compactSectionBadge.innerHTML = `${iconMap[currentId] || ''} <span class="font-extrabold tracking-wider">${sectionName}</span>`;
+            }
+
+            navLinks.forEach(link => {
+              if (link.getAttribute('data-section') === currentId) {
+                link.classList.add('active-section');
+              } else {
+                link.classList.remove('active-section');
+              }
+            });
+
+            const activeColors = tintMap[tintKey] || tintMap.cyan;
+            document.documentElement.style.setProperty('--nav-tint', activeColors.tint);
+            document.documentElement.style.setProperty('--nav-border', activeColors.border);
+            if (compactSectionBadge) {
+              compactSectionBadge.style.color = activeColors.accent;
+              compactSectionBadge.style.borderColor = activeColors.border;
+            }
+          }
+        });
+      }, { threshold: 0.35 });
+
+      sections.forEach(sec => sectionObserver.observe(sec));
+
+      // ── Apple Story-Style Resume Toast Pop-up Timer ──
+      const resumeToast = document.getElementById('resume-toast');
+      const progressFill = document.getElementById('story-progress-fill');
+      const closeToastBtn = document.getElementById('close-toast-btn');
+      const dismissToastBtn = document.getElementById('dismiss-toast-btn');
+      const downloadYesBtn = document.getElementById('download-yes-btn');
+      const contactSection = document.getElementById('contact');
+      
+      let toastTriggered = false;
+      let progressTimer = null;
+
+      function startStoryProgress(durationMs = 7000) {
+        let startTime = null;
+        
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          const elapsed = timestamp - startTime;
+          const percentage = Math.min((elapsed / durationMs) * 100, 100);
+          
+          if (progressFill) progressFill.style.width = percentage + '%';
+          
+          if (elapsed < durationMs) {
+            progressTimer = requestAnimationFrame(step);
+          } else {
+            closeResumeToast();
+          }
+        }
+        progressTimer = requestAnimationFrame(step);
+      }
+
+      function closeResumeToast() {
+        if (progressTimer) cancelAnimationFrame(progressTimer);
+        if (resumeToast) resumeToast.classList.remove('toast-visible');
+      }
+
+      if (contactSection && resumeToast) {
+        const toastObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !toastTriggered) {
+              toastTriggered = true;
+              setTimeout(() => {
+                resumeToast.classList.add('toast-visible');
+                startStoryProgress(7000);
+              }, 400);
+            }
+          });
+        }, { threshold: 0.25 });
+
+        toastObserver.observe(contactSection);
+      }
+
+      if (closeToastBtn) closeToastBtn.addEventListener('click', closeResumeToast);
+      if (dismissToastBtn) dismissToastBtn.addEventListener('click', closeResumeToast);
+      if (downloadYesBtn) {
+        downloadYesBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          alert('Downloading Shreyash Verma Resume...');
+          closeResumeToast();
+        });
+      }
+
+      // ── Native Interactive Particle Field Engine (Optimized for 120Hz+) ──
       const canvas = document.getElementById('particle-canvas');
       const ctx = canvas.getContext('2d');
 
       let particlesArray = [];
-      const numberOfParticles = 80; 
-      const connectionDistance = 160; 
+      const numberOfParticles = 75; 
+      const connectionDistance = 150; 
       
       const mouse = { x: null, y: null, radius: 140 };
       let cameraDriftX = 0;
@@ -1073,9 +1704,9 @@
       window.addEventListener('mousemove', (event) => {
         mouse.x = event.clientX;
         mouse.y = event.clientY;
-        cameraDriftX = ((window.innerWidth / 2) - mouse.x) * 0.015;
-        cameraDriftY = ((window.innerHeight / 2) - mouse.y) * 0.015;
-      });
+        cameraDriftX = ((window.innerWidth / 2) - mouse.x) * 0.012;
+        cameraDriftY = ((window.innerHeight / 2) - mouse.y) * 0.012;
+      }, { passive: true });
 
       window.addEventListener('mouseout', () => {
         mouse.x = null;
@@ -1094,9 +1725,9 @@
         constructor() {
           this.x = Math.random() * canvas.width;
           this.y = Math.random() * canvas.height;
-          this.size = Math.random() * 1.8 + 0.5; 
-          this.speedX = (Math.random() - 0.5) * 0.4;
-          this.speedY = (Math.random() - 0.5) * 0.4;
+          this.size = Math.random() * 1.6 + 0.5; 
+          this.speedX = (Math.random() - 0.5) * 0.35;
+          this.speedY = (Math.random() - 0.5) * 0.35;
         }
 
         update() {
@@ -1116,14 +1747,14 @@
               let force = (mouse.radius - distance) / mouse.radius;
               let directionX = dx / distance;
               let directionY = dy / distance;
-              this.x += directionX * force * 1.2;
-              this.y += directionY * force * 1.2;
+              this.x += directionX * force * 1.1;
+              this.y += directionY * force * 1.1;
             }
           }
         }
 
         draw(isDark) {
-          ctx.fillStyle = isDark ? 'rgba(248, 250, 252, 0.4)' : 'rgba(15, 23, 42, 0.3)'; 
+          ctx.fillStyle = isDark ? 'rgba(248, 250, 252, 0.45)' : 'rgba(14, 165, 233, 0.45)'; 
           ctx.beginPath();
           ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
           ctx.fill();
@@ -1147,9 +1778,9 @@
             if (distance < connectionDistance) {
               let opacity = (1 - (distance / connectionDistance));
               if(isDark) {
-                 ctx.strokeStyle = `rgba(56, 189, 248, ${opacity * 0.2})`; 
+                 ctx.strokeStyle = `rgba(56, 189, 248, ${opacity * 0.18})`; 
               } else {
-                 ctx.strokeStyle = `rgba(2, 132, 199, ${opacity * 0.15})`; 
+                 ctx.strokeStyle = `rgba(2, 132, 199, ${opacity * 0.22})`; 
               }
               ctx.lineWidth = 1;
               ctx.beginPath();
@@ -1209,11 +1840,11 @@
             } else {
               window.location.href = targetUrl;
             }
-          }, 1200); 
+          }, 1100); 
         });
       });
 
-      // ── UI/UX Interactions ──
+      // ── Feature 2: Scroll-Driven Section Fluidity Observer ──
       const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -1221,18 +1852,25 @@
             revealObserver.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
       
       document.querySelectorAll('.reveal-node').forEach((node) => revealObserver.observe(node));
 
+      let isMouseMoving = false;
       document.querySelectorAll('.spotlight-card').forEach((card) => {
         card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          card.style.setProperty('--mouse-x', `${x}px`);
-          card.style.setProperty('--mouse-y', `${y}px`);
-        });
+          if (!isMouseMoving) {
+            window.requestAnimationFrame(() => {
+              const rect = card.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              const y = e.clientY - rect.top;
+              card.style.setProperty('--mouse-x', `${x}px`);
+              card.style.setProperty('--mouse-y', `${y}px`);
+              isMouseMoving = false;
+            });
+            isMouseMoving = true;
+          }
+        }, { passive: true });
       });
 
       const mobileToggle = document.getElementById('mobileToggle');
@@ -1244,15 +1882,15 @@
         if (isMenuOpen) {
           mobileMenu.classList.remove('hidden');
           mobileMenu.classList.add('flex');
-          mobileToggle.innerHTML = '<i class="fa-solid fa-xmark text-xl"></i>';
+          mobileToggle.innerHTML = '<i class="fa-solid fa-xmark text-lg"></i>';
         } else {
           mobileMenu.classList.add('hidden');
           mobileMenu.classList.remove('flex');
-          mobileToggle.innerHTML = '<i class="fa-solid fa-bars text-xl"></i>';
+          mobileToggle.innerHTML = '<i class="fa-solid fa-bars text-lg"></i>';
         }
       }
 
-      mobileToggle.addEventListener('click', toggleMenu);
+      if (mobileToggle) mobileToggle.addEventListener('click', toggleMenu);
       document.querySelectorAll('.mobile-link').forEach(link => {
         link.addEventListener('click', () => {
           if(isMenuOpen) toggleMenu();
@@ -1264,7 +1902,7 @@
           e.preventDefault();
           const target = document.querySelector(this.getAttribute('href'));
           if (target) {
-            const offset = 100;
+            const offset = 90;
             const elementPosition = target.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.pageYOffset - offset;
             window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
