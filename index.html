@@ -11,7 +11,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
+  <!-- Tailwind CSS & GSAP Animation Engine -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -80,7 +83,7 @@
       transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* ── Feature 1: Siri-Style Hero Text Shimmer ── */
+    /* ── Siri-Style Hero Text Shimmer ── */
     .apple-siri-shimmer {
       background: linear-gradient(
         135deg,
@@ -104,7 +107,7 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* ── Feature 2: Scroll-Driven Section Fluidity ── */
+    /* ── Scroll-Driven Section Fluidity ── */
     .reveal-node {
       opacity: 0;
       filter: blur(14px);
@@ -121,7 +124,7 @@
       transform: translateY(0px) scale(1);
     }
 
-    /* ── Feature 3: Adaptive Glass Dynamic Island ── */
+    /* ── Adaptive Glass Dynamic Island ── */
     #nav-island-wrapper {
       position: fixed;
       top: 16px;
@@ -282,7 +285,7 @@
       transform: translateY(-1.5px) scale(1.02);
     }
 
-    /* ── Feature 4: Phone Mockup Dynamic Island Notification Engine ── */
+    /* ── Phone Mockup Dynamic Island Notification Engine ── */
     .phone-dynamic-island {
       position: absolute;
       top: 10px;
@@ -453,7 +456,8 @@
     }
 
     #splash-screen {
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
     }
     
     .splash-flex-container {
@@ -778,15 +782,53 @@
       0%, 100% { transform: scale(1); opacity: 0.75; box-shadow: 0 0 0px currentColor; }
       50% { transform: scale(1.35); opacity: 1; box-shadow: 0 0 16px 3px currentColor; }
     }
+
+    /* ── CLASSIC UI ACCORDION TABS ENGINE (From TypeMind Template) ── */
+    #island-drop-box {
+      position: absolute; top: 0; left: 50%; transform: translate(-50%, -300px);
+      z-index: 50; display: flex; align-items: center; justify-content: center;
+      background: rgba(10, 15, 30, 0.95); border: 2px solid var(--accent);
+      box-shadow: 0 0 50px rgba(56, 189, 248, 0.6); overflow: hidden; pointer-events: none; white-space: nowrap;
+    }
+    #tabs-column { opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+    .apple-tab-btn {
+      width: 100%; text-align: left; padding: 16px 22px; border-radius: 20px;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-secondary); font-weight: 600; font-size: 1.05rem; display: flex;
+      align-items: center; justify-content: space-between;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden;
+      will-change: transform, background;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .apple-tab-btn:hover { 
+      background: var(--nav-tint); color: var(--text-primary); border-color: var(--accent); transform: translateX(4px); 
+    }
+    .apple-tab-btn.is-bulky {
+      transform: scale(1.05) translateX(12px) !important; padding: 22px 28px !important;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.3) 0%, rgba(192, 132, 252, 0.2) 100%) !important;
+      border-color: rgba(56, 189, 248, 0.8) !important; color: #ffffff !important;
+      box-shadow: 0 15px 45px rgba(56, 189, 248, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.5) !important; z-index: 30;
+    }
+    .apple-tab-btn.is-bulky .tab-title-text {
+      background: linear-gradient(135deg, #ffffff 0%, #38bdf8 30%, #ffffff 60%, #c084fc 100%);
+      background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: siriShimmerFlow 3s linear infinite; font-weight: 800;
+    }
+    @keyframes intenseShimmerBurst {
+      0% { box-shadow: 0 0 0 rgba(56, 189, 248, 0); background: var(--surface); border-color: var(--border); }
+      40% { box-shadow: 0 0 60px rgba(56, 189, 248, 1), 0 0 25px #c084fc; background: linear-gradient(135deg, rgba(56, 189, 248, 0.75) 0%, rgba(192, 132, 252, 0.65) 100%); border-color: #ffffff; transform: scale(1.03); color: #ffffff; }
+      100% { box-shadow: 0 0 15px rgba(56, 189, 248, 0.15); background: var(--surface); border-color: var(--border); transform: scale(1); }
+    }
+    .shimmer-burst-glow { animation: intenseShimmerBurst 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards !important; }
   </style>
 </head>
 <body class="antialiased selection:bg-accent/30 selection:text-text-primary">
 
-  <!-- ── Splash Screen Preloader ── -->
-  <div id="splash-screen" class="fixed inset-0 z-[999999] bg-background flex flex-col items-center justify-center">
+  <!-- ── Splash Screen Preloader (Clickable to Skip!) ── -->
+  <div id="splash-screen" class="fixed inset-0 z-[999999] bg-background flex flex-col items-center justify-center select-none" title="Click or Tap Anywhere to Enter Website">
     <div class="absolute inset-0 bg-grid-pattern opacity-50 pointer-events-none"></div>
     
-    <div id="splash-flex" class="splash-flex-container relative z-10 w-full px-6">
+    <div id="splash-flex" class="splash-flex-container relative z-10 w-full px-6 pointer-events-none">
       <div class="splash-logo-outer">
         <div id="splash-logo-inner" class="splash-logo-inner bg-surface">
           <img src="https://i.ibb.co/mrk9d9TV/channels4-profile.jpg" alt="Channel Logo" class="splash-front" />
@@ -800,6 +842,11 @@
           BCA <span class="text-accent mx-1">/</span> Tech Content
         </p>
       </div>
+    </div>
+
+    <!-- Skip Hint for User -->
+    <div class="absolute bottom-10 z-20 text-xs font-mono tracking-widest text-text-muted uppercase animate-pulse flex items-center gap-2">
+      <i class="fa-solid fa-mouse-pointer text-accent"></i> Click or Tap Anywhere to Enter Website
     </div>
   </div>
 
@@ -822,7 +869,7 @@
     <rect width="100%" height="100%" filter="url(#grain)"/>
   </svg>
 
-  <!-- ── Feature 3: Adaptive Glass Dynamic Island Navigation ── -->
+  <!-- ── Adaptive Glass Dynamic Island Navigation ── -->
   <div id="nav-island-wrapper">
     <nav id="dynamic-island-nav" class="nav-island">
       
@@ -910,7 +957,6 @@
           </div>
           
           <div>
-            <!-- Feature 1 Applied: Siri-Style Shimmer -->
             <h1 class="text-6xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-[0.9] apple-siri-shimmer pb-2 drop-shadow-lg">
               SHREYASH<br/>VERMA
             </h1>
@@ -1114,7 +1160,7 @@
             </div>
           </div>
 
-          <!-- 2ND IPHONE MOCKUP WITH FEATURE 4: DYNAMIC ISLAND NOTIFICATIONS -->
+          <!-- 2ND IPHONE MOCKUP -->
           <div class="lg:col-span-5 order-1 lg:order-2 lg:sticky lg:top-32 h-fit flex justify-center lg:justify-end reveal-node" style="transition-delay: 0.2s;">
             <div class="iphone-frame scale-[0.85] sm:scale-100 origin-center lg:origin-right">
               <div class="iphone-btn left-[-16px] top-[110px] w-[4px] h-[26px]"></div>
@@ -1123,7 +1169,6 @@
               <div class="iphone-btn right-[-16px] top-[180px] w-[4px] h-[70px]"></div>
               
               <div class="iphone-screen bg-black">
-                <!-- Feature 4 Interactive Island Container -->
                 <div id="process-phone-island" class="phone-dynamic-island">
                   <div class="phone-island-content">
                     <div id="phone-island-icon" class="phone-island-icon bg-red-600">
@@ -1156,77 +1201,55 @@
       </div>
     </section>
 
-    <!-- Work/Academic Status -->
-    <section id="transmissions" class="py-24 sm:py-32 relative z-10" data-section-name="ACADEMICS" data-tint="emerald">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-6 mb-16 reveal-node text-center sm:text-left">
-          <div>
-            <span class="section-label glass-panel px-4 py-2 rounded-full inline-block mb-4 shadow-sm border-blue-500/20 text-blue-500">03 — Work</span>
-            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mt-2 tracking-tighter text-text-primary transition-colors duration-500">Academic Status</h2>
-          </div>
-          <a href="https://github.com/Shreyash-Verma16" target="_blank" class="flex items-center justify-center gap-2 text-white bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3 rounded-full font-bold shadow-[0_0_20px_rgba(59,130,246,0.4)] hover:shadow-[0_0_30px_rgba(59,130,246,0.6)] border border-white/20 click-shrink">
-            View GitHub <i class="fa-solid fa-arrow-right text-sm"></i>
-          </a>
+    <!-- ── ACADEMIC STATUS & PROJECTS (Upgraded to Shreyash's Requested 3 Core Projects & Dual Buttons!) ── -->
+    <section id="transmissions" class="py-24 sm:py-32 px-6 max-w-7xl mx-auto relative z-10" data-section-name="ACADEMICS" data-tint="emerald">
+      <div class="reveal-node mb-12 text-center">
+        <span class="font-mono text-xs font-bold text-emerald-400 tracking-widest uppercase bg-emerald-500/10 border border-emerald-500/30 px-3.5 py-1.5 rounded-full">03 — Work & Portfolio</span>
+        <h2 class="text-4xl sm:text-6xl font-black tracking-tight mt-4 text-text-primary">Academic Status & Projects</h2>
+        <p class="text-text-secondary max-w-xl mx-auto mt-3 text-base leading-relaxed">Click any interactive feature button below to smoothly slide out its dedicated workspace canvas.</p>
+      </div>
+      
+      <!-- Interactive Stage & Accordion Layout -->
+      <div id="projects-interactive" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative min-h-[500px]">
+        
+        <!-- The Shimmering Drop Box Intro -->
+        <div id="island-drop-box" class="w-14 h-14 rounded-full">
+          <div class="drop-logo w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white font-black text-xs mr-2 shrink-0">SV</div>
+          <span class="drop-text text-lg font-black tracking-tight opacity-0 pr-3 text-white">✨ My Academic & Code Projects</span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
+        <!-- Left Column: Stacked Bulky Buttons (ONLY THE THREE REAL PROJECTS!) -->
+        <div id="tabs-column" class="lg:col-span-5 flex flex-col gap-3.5 sticky top-28 z-20">
+          <button class="apple-tab-btn" data-project="1">
+            <span class="flex items-center gap-4">
+              <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-mono font-bold text-cyan-400 shrink-0">01</span>
+              <span class="tab-title-text">TypeMind Platform</span>
+            </span>
+            <i class="fa-solid fa-plus tab-icon text-sm shrink-0 ml-2"></i>
+          </button>
           
-          <a href="YOUR_PROJECT_LINK_HERE" class="spotlight-card block group glass-panel hover:border-blue-500 rounded-3xl overflow-hidden reveal-node shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(59,130,246,0.25)]" style="transition-delay: 0.1s;">
-            <div class="h-48 bg-gradient-to-br from-blue-500/10 to-indigo-600/10 flex items-center justify-center border-b border-border transition-colors duration-500 ease-out group-hover:from-blue-500/25 group-hover:to-indigo-600/25 relative z-10">
-              <i class="fa-solid fa-clone text-6xl text-blue-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.6)] group-hover:scale-110 group-hover:drop-shadow-[0_0_25px_rgba(59,130,246,0.9)] transition-all duration-500 ease-out"></i>
-            </div>
-            <div class="p-8 relative z-10">
-              <div class="text-xs font-bold font-mono text-blue-500 dark:text-blue-400 mb-2 tracking-wider transition-colors duration-500">PERSONAL PROJECT</div>
-              <h3 class="font-bold text-xl text-text-primary mb-4 transition-colors duration-500">The GPT Prompt Project</h3>
-              <div class="flex gap-2">
-                <span class="text-[10px] uppercase tracking-wider font-bold glass-panel px-3 py-1 rounded-full text-text-primary transition-colors duration-500">HTML</span>
-                <span class="text-[10px] uppercase tracking-wider font-bold glass-panel px-3 py-1 rounded-full text-text-primary transition-colors duration-500">JS</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="YOUR_PORTFOLIO_LINK_HERE" class="spotlight-card block group glass-panel hover:border-fuchsia-500 rounded-3xl overflow-hidden reveal-node shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(217,70,239,0.25)]" style="transition-delay: 0.2s;">
-            <div class="h-48 bg-gradient-to-br from-fuchsia-500/10 to-purple-600/10 flex items-center justify-center border-b border-border transition-colors duration-500 ease-out group-hover:from-fuchsia-500/25 group-hover:to-purple-600/25 relative z-10">
-              <i class="fa-solid fa-wand-magic-sparkles text-6xl text-fuchsia-500 drop-shadow-[0_0_15px_rgba(217,70,239,0.6)] group-hover:scale-110 group-hover:drop-shadow-[0_0_25px_rgba(217,70,239,0.9)] transition-all duration-500 ease-out"></i>
-            </div>
-            <div class="p-8 relative z-10">
-              <div class="text-xs font-bold font-mono text-fuchsia-500 dark:text-fuchsia-400 mb-2 tracking-wider transition-colors duration-500">The Portfolio Website</div>
-              <h3 class="font-bold text-xl text-text-primary mb-4 transition-colors duration-500">Cinematic Digital Portfolio</h3>
-              <div class="flex gap-2">
-                <span class="text-[10px] uppercase tracking-wider font-bold glass-panel px-3 py-1 rounded-full text-text-primary transition-colors duration-500">Frontend</span>
-                <span class="text-[10px] uppercase tracking-wider font-bold glass-panel px-3 py-1 rounded-full text-text-primary transition-colors duration-500">Tailwind</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="YOUR_PYTHON_LINK_HERE" class="spotlight-card block group glass-panel hover:border-emerald-500 rounded-3xl overflow-hidden reveal-node shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.25)]" style="transition-delay: 0.3s;">
-            <div class="h-48 bg-gradient-to-br from-emerald-500/10 to-teal-600/10 flex items-center justify-center border-b border-border transition-colors duration-500 ease-out group-hover:from-emerald-500/25 group-hover:to-teal-600/25 relative z-10">
-              <i class="fa-brands fa-python text-6xl text-emerald-500 drop-shadow-[0_0_15px_rgba(16,185,129,0.6)] group-hover:scale-110 group-hover:drop-shadow-[0_0_25px_rgba(16,185,129,0.9)] transition-all duration-500 ease-out"></i>
-            </div>
-            <div class="p-8 relative z-10">
-              <div class="text-xs font-bold font-mono text-emerald-500 dark:text-emerald-400 mb-2 tracking-wider transition-colors duration-500">The Python Projects</div>
-              <h3 class="font-bold text-xl text-text-primary mb-4 transition-colors duration-500">Python Mini-Project Hub</h3>
-              <div class="flex gap-2">
-                <span class="text-[10px] uppercase tracking-wider font-bold glass-panel px-3 py-1 rounded-full text-text-primary transition-colors duration-500">Python</span>
-                <span class="text-[10px] uppercase tracking-wider font-bold glass-panel px-3 py-1 rounded-full text-text-primary transition-colors duration-500">AI/ML</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="YOUR_LOG_LINK_HERE" class="spotlight-card block group glass-panel hover:border-amber-500 rounded-3xl overflow-hidden reveal-node shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(245,158,11,0.25)]" style="transition-delay: 0.4s;">
-            <div class="h-48 bg-gradient-to-br from-amber-500/10 to-orange-600/10 flex items-center justify-center border-b border-border transition-colors duration-500 ease-out group-hover:from-amber-500/25 group-hover:to-orange-600/25 relative z-10">
-              <i class="fa-solid fa-book-open text-6xl text-amber-500 drop-shadow-[0_0_15px_rgba(245,158,11,0.6)] group-hover:scale-110 group-hover:drop-shadow-[0_0_25px_rgba(245,158,11,0.9)] transition-all duration-500 ease-out"></i>
-            </div>
-            <div class="p-8 relative z-10">
-              <div class="text-xs font-bold font-mono text-amber-500 dark:text-amber-400 mb-2 tracking-wider transition-colors duration-500">Public Learning Journey</div>
-              <h3 class="font-bold text-xl text-text-primary mb-4 transition-colors duration-500">Continuous Development Log</h3>
-              <div class="flex gap-2">
-                <span class="text-[10px] uppercase tracking-wider font-bold glass-panel px-3 py-1 rounded-full text-text-primary transition-colors duration-500">GitHub</span>
-                <span class="text-[10px] uppercase tracking-wider font-bold glass-panel px-3 py-1 rounded-full text-text-primary transition-colors duration-500">Docs</span>
-              </div>
-            </div>
-          </a>
+          <button class="apple-tab-btn" data-project="2">
+            <span class="flex items-center gap-4">
+              <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-mono font-bold text-cyan-400 shrink-0">02</span>
+              <span class="tab-title-text">Live Bus Tracking System</span>
+            </span>
+            <i class="fa-solid fa-plus tab-icon text-sm shrink-0 ml-2"></i>
+          </button>
+          
+          <button class="apple-tab-btn" data-project="3">
+            <span class="flex items-center gap-4">
+              <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-mono font-bold text-cyan-400 shrink-0">03</span>
+              <span class="tab-title-text">Gesture Controller</span>
+            </span>
+            <i class="fa-solid fa-plus tab-icon text-sm shrink-0 ml-2"></i>
+          </button>
         </div>
+
+        <!-- Right Column: Animated Card Stage -->
+        <div id="stage-column" class="lg:col-span-7 sticky top-28 z-10 min-h-[440px]">
+          <div id="active-card-stage" class="w-full hidden"></div>
+        </div>
+
       </div>
     </section>
 
@@ -1419,7 +1442,7 @@
         }, 4000); 
       });
 
-      // ── Feature 4: Phone Mockup Dynamic Island Notification Sequence ──
+      // ── Phone Mockup Dynamic Island Notification Sequence ──
       const phoneIsland = document.getElementById('process-phone-island');
       const phoneIconEl = document.getElementById('phone-island-icon');
       const phoneTextEl = document.getElementById('phone-island-text');
@@ -1458,39 +1481,189 @@
         }, 3000);
       }
 
-      // ── Splash Screen Preloader Logic ──
+      // ── Splash Screen Preloader Logic (With Click-to-Enter Override!) ──
       const splashScreen = document.getElementById('splash-screen');
       const splashFlex = document.getElementById('splash-flex');
       const splashLogoInner = document.getElementById('splash-logo-inner');
       const mainContent = document.getElementById('main-content-flow');
       
-      if (splashScreen && splashFlex) {
-        setTimeout(() => {
-          splashLogoInner.style.transform = 'rotateY(180deg)';
-        }, 1400);
+      let splashTimeouts = [];
 
-        setTimeout(() => {
-          splashFlex.classList.add('expand');
-        }, 2400);
+      function closeSplashScreenImmediately() {
+        if (!splashScreen || splashScreen.style.opacity === '0') return;
+        
+        splashTimeouts.forEach(timer => clearTimeout(timer));
+        
+        splashScreen.style.opacity = '0';
+        splashScreen.style.transform = 'scale(1.08)';
+        splashScreen.style.pointerEvents = 'none';
+        
+        if (mainContent) mainContent.classList.add('content-visible');
         
         setTimeout(() => {
-          splashFlex.classList.remove('expand');
-          splashFlex.classList.add('absorb');
-        }, 4400); 
+          if (splashScreen.parentNode) splashScreen.remove();
+        }, 600);
+      }
 
-        setTimeout(() => {
-          splashScreen.style.opacity = '0';
-          splashScreen.style.transform = 'scale(1.08)';
-          splashScreen.style.pointerEvents = 'none';
-          
-          if(mainContent) mainContent.classList.add('content-visible');
-        }, 5100); 
+      if (splashScreen && splashFlex) {
+        splashScreen.addEventListener('click', closeSplashScreenImmediately);
+        splashScreen.addEventListener('touchstart', closeSplashScreenImmediately, { passive: true });
 
-        setTimeout(() => {
-          splashScreen.remove();
-        }, 6200); 
+        splashTimeouts.push(setTimeout(() => {
+          if (splashLogoInner) splashLogoInner.style.transform = 'rotateY(180deg)';
+        }, 1400));
+
+        splashTimeouts.push(setTimeout(() => {
+          if (splashFlex) splashFlex.classList.add('expand');
+        }, 2400));
+        
+        splashTimeouts.push(setTimeout(() => {
+          if (splashFlex) {
+            splashFlex.classList.remove('expand');
+            splashFlex.classList.add('absorb');
+          }
+        }, 4400)); 
+
+        splashTimeouts.push(setTimeout(() => {
+          closeSplashScreenImmediately();
+        }, 5100)); 
       } else {
         if (mainContent) mainContent.classList.add('content-visible');
+      }
+
+      // ── UPGRADED ACADEMICS: ONLY 3 CORE PROJECTS & DUAL ACTION BUTTONS ──
+      let hasProjectsPlayed = false;
+      const projectsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { 
+          if (entry.isIntersecting && !hasProjectsPlayed) { 
+            hasProjectsPlayed = true; 
+            triggerIslandDropAnimation(); 
+          } 
+        });
+      }, { threshold: 0.25 });
+      
+      const transSec = document.getElementById('transmissions');
+      if (transSec) projectsObserver.observe(transSec);
+
+      function triggerIslandDropAnimation() {
+        const dropBox = document.getElementById('island-drop-box');
+        const dropText = dropBox.querySelector('.drop-text');
+        const tabsColumn = document.getElementById('tabs-column');
+        const tabBtns = document.querySelectorAll('.apple-tab-btn');
+        
+        gsap.fromTo(dropBox, { y: -380, scale: 0.2, opacity: 0, borderRadius: "999px", width: "56px" }, { y: 60, scale: 1.1, opacity: 1, duration: 0.8, ease: "back.out(1.5)" });
+        gsap.to(dropBox, { width: "360px", borderRadius: "24px", duration: 0.6, delay: 0.8, ease: "power3.out", onStart: () => { gsap.to(dropText, { opacity: 1, duration: 0.3 }); }, onComplete: () => { dropText.classList.add('apple-siri-shimmer'); } });
+        gsap.to(dropBox, { x: -220, y: 120, opacity: 0, scale: 0.8, duration: 0.7, delay: 2.2, ease: "power2.inOut", onComplete: () => { dropBox.style.display = 'none'; } });
+        gsap.fromTo(tabBtns, { x: -100, opacity: 0, scale: 0.8 }, { x: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.1, delay: 2.4, ease: "back.out(1.4)", onStart: () => { tabsColumn.style.opacity = "1"; tabsColumn.style.pointerEvents = "auto"; }, onComplete: () => { document.querySelector('.apple-tab-btn[data-project="1"]').click(); } });
+      }
+
+      // Shreyash Verma's Exactly 3 Core Projects (No extra chips!)
+      const projectData = {
+        "1": { 
+          icon: "fa-keyboard", 
+          color: "indigo", 
+          bgGradient: "from-indigo-950/80 via-slate-900/90 to-blue-950/80", 
+          title: "TypeMind Platform", 
+          desc: "An intelligent communication interface designed to analyze typing ergonomics, speed (WPM), and cognitive reaction times. Built with custom algorithms that adapt text difficulty in real-time.",
+          webUrl: "https://shreyash-verma16.github.io/Type-Mind-/",
+          repoUrl: "https://github.com/Shreyash-Verma16"
+        },
+        "2": { 
+          icon: "fa-bus-transit", 
+          color: "cyan", 
+          bgGradient: "from-cyan-950/80 via-slate-900/90 to-blue-950/80", 
+          title: "Live Bus Tracking System", 
+          desc: "A real-time transit tracking system that bridges GPS coordinates with a responsive map interface. Provides commuters with accurate ETAs and route optimization using live websocket data streams.",
+          webUrl: "https://github.com/Shreyash-Verma16",
+          repoUrl: "https://github.com/Shreyash-Verma16"
+        },
+        "3": { 
+          icon: "fa-hand-sparkles", 
+          color: "purple", 
+          bgGradient: "from-purple-950/80 via-slate-900/90 to-fuchsia-950/80", 
+          title: "Gesture Controller Interface", 
+          desc: "A computer vision application utilizing OpenCV and MediaPipe to translate hand gestures into system-level commands. Controls media playback, presentation slides, and volume touchlessly.",
+          webUrl: "https://github.com/Shreyash-Verma16",
+          repoUrl: "https://github.com/Shreyash-Verma16"
+        }
+      };
+
+      const stageCardWrapper = document.getElementById('active-card-stage');
+      const tabButtons = document.querySelectorAll('.apple-tab-btn');
+      let currentActiveTabId = null;
+
+      // Render function WITHOUT technology pills, displaying clean LHS and RHS action buttons
+      function renderCardHTML(data) {
+        return `
+          <div class="spotlight-card p-8 sm:p-12 rounded-3xl bg-gradient-to-br ${data.bgGradient} border-${data.color}-500/50 shadow-[0_0_60px_rgba(56,189,248,0.25)] flex flex-col justify-between min-h-[440px] text-left">
+            <div>
+              <div class="w-14 h-14 rounded-2xl bg-${data.color}-500/20 border border-${data.color}-500/40 text-${data.color}-400 flex items-center justify-center font-bold mb-8 shadow-[0_0_25px_rgba(56,189,248,0.35)]">
+                <i class="fa-solid ${data.icon} text-2xl"></i>
+              </div>
+              <span class="text-xs font-mono font-semibold text-${data.color}-400 uppercase tracking-widest">Active Workspace Canvas</span>
+              <h3 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 mb-4">${data.title}</h3>
+              <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-medium">${data.desc}</p>
+            </div>
+            
+            <div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between w-full gap-4">
+              <!-- LHS: Visit Website Button -->
+              <a href="${data.webUrl}" target="_blank" class="px-6 py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg hover:shadow-[0_0_20px_var(--glow-shadow)] flex items-center gap-2">
+                <i class="fa-solid fa-globe text-sm"></i> Visit Website
+              </a>
+              <!-- RHS: GitHub Repository Button -->
+              <a href="${data.repoUrl}" target="_blank" class="px-6 py-3.5 glass-panel text-text-primary hover:text-accent font-bold text-xs uppercase tracking-wider rounded-xl border border-border flex items-center gap-2">
+                <i class="fa-brands fa-github text-sm"></i> GitHub Repository
+              </a>
+            </div>
+          </div>
+        `;
+      }
+
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-project');
+          if (targetId === currentActiveTabId) return;
+          const targetData = projectData[targetId];
+          
+          if (currentActiveTabId !== null) {
+            const prevBtn = document.querySelector(`.apple-tab-btn[data-project="${currentActiveTabId}"]`);
+            const prevRect = prevBtn.getBoundingClientRect();
+            const stageRect = document.getElementById('stage-column').getBoundingClientRect();
+            const relativeY = prevRect.top - stageRect.top + (prevRect.height / 2) - 200;
+            
+            gsap.to(stageCardWrapper, { 
+              x: -180, y: relativeY, scale: 0.15, opacity: 0, duration: 0.38, ease: "power3.in", 
+              onComplete: () => { 
+                if (prevBtn) { 
+                  prevBtn.classList.remove('is-bulky'); 
+                  prevBtn.classList.add('shimmer-burst-glow'); 
+                  setTimeout(() => prevBtn.classList.remove('shimmer-burst-glow'), 1200); 
+                } 
+                birthCardFromButton(btn, targetId, targetData); 
+              } 
+            });
+          } else { 
+            birthCardFromButton(btn, targetId, targetData); 
+          }
+        });
+      });
+
+      function birthCardFromButton(clickedBtn, targetId, targetData) {
+        tabButtons.forEach(b => { 
+          b.classList.remove('is-bulky'); 
+          b.querySelector('.tab-icon').className = 'fa-solid fa-plus tab-icon text-sm text-slate-400'; 
+        });
+        clickedBtn.classList.add('is-bulky');
+        clickedBtn.querySelector('.tab-icon').className = 'fa-solid fa-circle-dot tab-icon text-sm text-cyan-400';
+        
+        const btnRect = clickedBtn.getBoundingClientRect();
+        const stageRect = document.getElementById('stage-column').getBoundingClientRect();
+        const relativeY = btnRect.top - stageRect.top + (btnRect.height / 2) - 200;
+        
+        stageCardWrapper.innerHTML = renderCardHTML(targetData);
+        stageCardWrapper.style.display = 'block';
+        gsap.fromTo(stageCardWrapper, { x: -180, y: relativeY, scale: 0.15, opacity: 0 }, { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.35)" });
+        currentActiveTabId = targetId;
       }
 
       // ── Theme Management ──
@@ -1504,7 +1677,7 @@
         });
       });
 
-      // ── Feature 3: Adaptive Dynamic Island Navigation Engine ──
+      // ── Adaptive Dynamic Island Navigation Engine ──
       const navIsland = document.getElementById('dynamic-island-nav');
       const navIslandWrapper = document.getElementById('nav-island-wrapper');
       const compactSectionBadge = document.getElementById('compact-section-badge');
@@ -1689,7 +1862,7 @@
         });
       }
 
-      // ── Native Interactive Particle Field Engine (Optimized for 120Hz+) ──
+      // ── Native Interactive Particle Field Engine ──
       const canvas = document.getElementById('particle-canvas');
       const ctx = canvas.getContext('2d');
 
@@ -1844,7 +2017,7 @@
         });
       });
 
-      // ── Feature 2: Scroll-Driven Section Fluidity Observer ──
+      // ── Scroll-Driven Section Fluidity Observer ──
       const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
